@@ -13,5 +13,6 @@ Todo:
   [] Handle no results on typeahead
   [] Allow viewing more results on typeahead 
   [] Fix typeahead searching if nothing input
+  [] Nearby location search. 
 
   
