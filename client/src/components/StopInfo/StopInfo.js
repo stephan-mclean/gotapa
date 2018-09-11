@@ -1,24 +1,24 @@
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-
-import { Pill } from '../Pill/Pill';
-import { H6 } from '../platform/Headers';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const StyledStopInfoContainer = styled.div`
     padding: 1rem;
     display: flex;
     justify-content: space-between; 
     align-items: center;   
+    border-bottom: ${props => `1px solid ${props.theme.tertiary}`};
 `;
 
 const LocationContainer = styled.div`
     display: inline-block; 
 `; 
 
-const StopNameHeading = styled(H6)`
+const StopNameHeading = styled.p`
     display: inline-block;
     margin-right: 0.5rem; 
+    font-weight: bold; 
 `;
 
 const StopIDContainer = styled.span`
@@ -30,9 +30,7 @@ const StopInfo = ({ stopId, stopName, operators, isFavourite }) => {
     const theOperators = operators.map((operator, index) => {
 
         return (
-            <Pill key={index} background={operator.bg} color={operator.fg}>
-                {operator.name}
-            </Pill>
+            <FontAwesomeIcon icon="circle" color={operator.bg} />
         ); 
     });
 

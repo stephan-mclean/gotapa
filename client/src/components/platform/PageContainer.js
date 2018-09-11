@@ -7,8 +7,8 @@ export default styled.section`
     }
     
     @media only screen and (max-width: 991px) {
-        margin-left: 2rem; 
-        margin-right: 2rem;
+        margin-left: 1rem; 
+        margin-right: 1rem;
     }
     
     margin-top: 2rem; 

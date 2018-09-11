@@ -12,6 +12,10 @@ const StyledRealTimeResultContainer = styled.div`
     flex-direction: row;
     align-items: center;
     justify-content: space-between; 
+
+    @media only screen and (max-width: 991px) {
+        padding: 0.5rem; 
+    }
 `;
 
 const RouteContainer = styled.div`
@@ -20,6 +24,14 @@ const RouteContainer = styled.div`
 
 const OriginDestinationContainer = styled.span`
     color: ${props => props.theme.secondary}; 
+    @media only screen and (max-width: 991px) {
+        display: inline-flex; 
+        flex-direction: column; 
+        text-align: center;
+        align-items: center;
+        font-weight: lighter;
+        font-size: 0.75rem;
+    }
 `;
 
 const DueTimeContainer = styled.span`
@@ -28,12 +40,13 @@ const DueTimeContainer = styled.span`
 `; 
 
 const TimeContainer = styled.span`
-    font-size: 2rem; 
+    font-size: 1.5rem; 
     align-self: center; 
 `;
 
 const MinutesContainer = styled.span`
     color: ${props => props.theme.secondary};  
+    font-size: 0.75rem; 
 `;
 
 const RealTimeResult = ({ route, operator, origin, destination, dueTime }) => (
@@ -41,8 +54,8 @@ const RealTimeResult = ({ route, operator, origin, destination, dueTime }) => (
 
         <RouteContainer>
             <Pill background={operator.bg} color={operator.fg}>{route}</Pill>
-            <OriginDestinationContainer>{origin} <FontAwesomeIcon icon="long-arrow-alt-right" /> {destination}</OriginDestinationContainer>
         </RouteContainer>
+        <OriginDestinationContainer>{origin} <FontAwesomeIcon icon="long-arrow-alt-right" /> {destination}</OriginDestinationContainer>
         <DueTimeContainer>
             <TimeContainer>{dueTime}</TimeContainer>
             {dueTime !== 'Due' && <MinutesContainer>minutes</MinutesContainer>}
