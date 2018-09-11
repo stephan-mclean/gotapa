@@ -1,11 +1,17 @@
 
 Todo:
   [] Allow adding favourites. 
+    [] For removal of favourites, show toast icon allowing undo. 
+  [] Add navigation back from stop screen. 
+  [] Add offline PWA behaviour 
+    [] Messaging on search, stop page.  
   [] Add Google maps. 
   [] Fix styling
     [] Mobile
     [] Typeahead input look. 
   [] Show popular stops. 
-  
+  [] Handle no results on typeahead
+  [] Allow viewing more results on typeahead 
+  [] Fix typeahead searching if nothing input
 
   

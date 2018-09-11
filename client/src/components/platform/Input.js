@@ -11,11 +11,11 @@ const Label = styled.label`
 const StyledInput = styled.input`
     padding: 0.5rem;
     border: ${props => `1px solid ${props.theme.tertiary}`}; 
-    box-shadow: ${props => `inset 0 1px 2px 0 ${props.theme.tertiary}`};
     border-radius: 5px; 
     outline: none; 
     flex: 1 0 auto;
     text-align: left; 
+    font-size: 1rem; 
 
     ::placeholder {
         color: ${props => props.theme.tertiary}; 
