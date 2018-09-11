@@ -1,0 +1,13 @@
+# Dependencies
+/node_modules
+/client/node_modules
+
+# IDE 
+/.vscode
+
+# NPM
+npm-debug.log*
+package-lock.json*
+
+# Build 
+/client/build

@@ -1,0 +1,1 @@
+exports.API_BASE_URL = 'https://data.smartdublin.ie/cgi-bin/rtpi';
