@@ -1,8 +1,10 @@
 const express = require('express');
 const app = express(); 
+const compression = require('compression');
 const path = require('path');
 const morgan = require('morgan');
 app.use(morgan(process.env.NODE_ENV === 'production' ? 'common' : 'dev'));
+app.use(compression());
 
 /*const mongoose = require('mongoose');
 const MONGODB_URI = process.env.MONGODB_URI;
