@@ -1,7 +1,15 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faLongArrowAltRight, faSpinner, faSync, faExclamationTriangle, faHeart as faSolidHeart, faCircle } from '@fortawesome/free-solid-svg-icons';
+import { 
+  faLongArrowAltRight, 
+  faSpinner, 
+  faSync, 
+  faExclamationTriangle, 
+  faHeart as faSolidHeart,
+  faCircle,
+  faChevronLeft 
+} from '@fortawesome/free-solid-svg-icons';
 import { faHeart } from '@fortawesome/free-regular-svg-icons';
 import styled, { ThemeProvider } from 'styled-components';
 
@@ -16,7 +24,7 @@ const StyledLink = styled(Link)`
   color: ${props => props.theme.background};
 `
 
-library.add(faLongArrowAltRight, faSpinner, faSync, faExclamationTriangle, faHeart, faSolidHeart, faCircle);
+library.add(faLongArrowAltRight, faSpinner, faSync, faExclamationTriangle, faHeart, faSolidHeart, faCircle, faChevronLeft);
 
 class App extends Component {
 

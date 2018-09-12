@@ -1,6 +1,7 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import styled from 'styled-components';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { H5 } from '../platform/Headers';
 
 const StyledNav = styled.nav`
@@ -17,7 +18,7 @@ const StyledHeader = styled(H5)`
     color: ${props => props.theme.background}; 
 `;
 
-// TODO: Replace the BackContainer with a Button component. 
+// TODO: Replace the BackContainer with a Button component.
 const BackContainer = styled.span`
     color: ${props => props.theme.background};
     cursor: pointer;  
@@ -52,7 +53,7 @@ class Nav extends React.Component {
         let back; 
 
         if (this.state.shouldShowBack) {
-            back = <BackContainer onClick={this.goBack}>BACK</BackContainer>
+            back = <BackContainer onClick={this.goBack}><FontAwesomeIcon icon="chevron-left" /></BackContainer>
         }
 
         return (
