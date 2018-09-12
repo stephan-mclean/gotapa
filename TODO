@@ -1,5 +1,5 @@
 
-Todo:
+Front End:
   [] Allow adding favourites. 
     [] For removal of favourites, show toast icon allowing undo. 
   [] Add navigation back from stop screen. 
@@ -14,5 +14,10 @@ Todo:
   [] Allow viewing more results on typeahead 
   [] Fix typeahead searching if nothing input
   [] Nearby location search. 
+
+Backend: 
+  [] Replace in memory cache with Redis
+  [] Preload stops on server start
+  [] Add endpoint for popular stops. 
 
   
