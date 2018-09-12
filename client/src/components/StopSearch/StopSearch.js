@@ -51,9 +51,6 @@ class StopSearch extends React.Component {
                 .then(response => response.json())
                 .then(data => {
                     const mappedResults = data.results.map(stop => new StopModel(stop));
-
-                    console.log('mapped results', mappedResults);
-
                     this.setState({ searchResults: mappedResults, loading: false });
                 });
 
@@ -63,7 +60,6 @@ class StopSearch extends React.Component {
     }
 
     onSearchResultSelected(item) {
-        console.log('Search result selected', item);
         this.props.history.push(`/stops/${item.stopId}`);
     }
 

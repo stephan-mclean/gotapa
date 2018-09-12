@@ -22,14 +22,11 @@ class Typeahead extends React.Component {
     }
 
     onChange(e) {
-        console.log('change');
         this.setState({ value: e.target.value });
         this.props.onChange(e);
     }
 
     onBlur(e) {
-        console.log('blur');
-
         // TODO: Bit of a hack, find a better way to handle this. 
         if (!this.state.blurTimeout) {
             const blurTimeout = setTimeout(() => {
@@ -43,7 +40,6 @@ class Typeahead extends React.Component {
     }
 
     onFocus(e) {
-        console.log('focus');
         this.setState({ showOptions: true });
         this.props.onFocus(e);
     }
