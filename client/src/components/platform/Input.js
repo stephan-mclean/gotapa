@@ -30,6 +30,7 @@ const StyledInputContainer = styled.div`
     display: inline-flex; 
     position: relative; 
     margin-bottom: 1rem;
+    width: 100%; 
 `
 
 class Input extends React.Component {
