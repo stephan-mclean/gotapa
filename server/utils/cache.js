@@ -6,7 +6,7 @@ let cache;
 if (process.env.NODE_ENV === 'production') {
     console.log('======= CACHE WITH REDIS =========');
     cache = apicache
-                .options({ redisClient: redis.createClient() })
+                .options({ redisClient: redis.createClient(process.env.REDIS_URL) })
                 .middleware; 
 } else {
     cache = apicache.middleware; 
