@@ -10,6 +10,7 @@ const fuseOptions = {
     minMatchCharLength: 1,
     keys: [
         'stopid',
+        'displaystopid',
         'shortname',
         'fullname'
     ]

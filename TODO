@@ -19,6 +19,6 @@ Backend:
   [] Replace in memory cache with Redis
   [] Preload stops on server start
   [] Add endpoint for popular stops. 
-  [] Look at searching with spaces in the search string. 
+  ✔ Look at searching with spaces in the search string. @done(18-09-12 10:33)
 
   
