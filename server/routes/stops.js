@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router(); 
-const apicache = require('apicache');
-const cache = apicache.middleware;
+const cache = require('../utils/cache');
 
 const stopsController = require('../controllers/stops');
 const asyncMiddleware = require('../utils/asyncMiddleware');
