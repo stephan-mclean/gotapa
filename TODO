@@ -14,11 +14,13 @@ Front End:
   [] Allow viewing more results on typeahead 
   [] Fix typeahead searching if nothing input
   [] Nearby location search. 
+  [] Allow searching by route. 
 
 Backend: 
   [] Replace in memory cache with Redis
   [] Preload stops on server start
   [] Add endpoint for popular stops. 
+  [] Allow searching by route. 
   ✔ Look at searching with spaces in the search string. @done(18-09-12 10:33)
 
   
