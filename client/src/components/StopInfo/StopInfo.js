@@ -30,7 +30,7 @@ const StopInfo = ({ stopId, stopName, operators, isFavourite }) => {
     const theOperators = operators.map((operator, index) => {
 
         return (
-            <FontAwesomeIcon icon="circle" color={operator.bg} />
+            <FontAwesomeIcon key={index} icon="circle" color={operator.bg} />
         ); 
     });
 

@@ -1,4 +1,5 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import { H5 } from '../platform/Headers';
 
@@ -16,8 +17,52 @@ const StyledHeader = styled(H5)`
     color: ${props => props.theme.background}; 
 `;
 
-export default props => (
-    <StyledNav>
-        <StyledHeader>{props.children}</StyledHeader>
-    </StyledNav>
-);
+// TODO: Replace the BackContainer with a Button component. 
+const BackContainer = styled.span`
+    color: ${props => props.theme.background};
+    cursor: pointer;  
+`;
+
+class Nav extends React.Component {
+
+    constructor(props) {
+        super(props);
+
+        this.shouldShowBack = this.shouldShowBack.bind(this);
+        this.goBack = this.goBack.bind(this);
+
+        this.state = { shouldShowBack: this.shouldShowBack() };
+    }
+
+    componentDidMount() {
+        this.props.history.listen(location => {
+            this.setState({ shouldShowBack: this.shouldShowBack() });
+        });
+    }
+
+    shouldShowBack() {
+        return this.props.history.location.pathname !== '/';
+    }
+
+    goBack() {
+        this.props.history.goBack();
+    }
+
+    render() {
+        let back; 
+
+        if (this.state.shouldShowBack) {
+            back = <BackContainer onClick={this.goBack}>BACK</BackContainer>
+        }
+
+        return (
+            <StyledNav>
+                {back}
+                <StyledHeader>{this.props.children}</StyledHeader>
+            </StyledNav>
+        );    
+    }
+
+}
+
+export default withRouter(Nav);
