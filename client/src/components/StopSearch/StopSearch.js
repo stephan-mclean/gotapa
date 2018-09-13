@@ -14,7 +14,7 @@ const RenderedStopInfo = props => {
 };
 
 const TypeaheadRenderBy = props => (
-    <List {...props} renderBy={RenderedStopInfo}></List>
+    <List {...props} renderBy={RenderedStopInfo} useKey="stopId"></List>
 );
 
 class StopSearch extends React.Component {

@@ -1,21 +1,21 @@
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import OperatorInfo from '../OperatorInfo/OperatorInfo';
 
 const StyledStopInfoContainer = styled.div`
     padding: 1rem;
     display: flex;
-    justify-content: space-between; 
-    align-items: center;   
+    flex-direction: column; 
     border-bottom: ${props => `1px solid ${props.theme.tertiary}`};
 `;
 
 const LocationContainer = styled.div`
     display: inline-block; 
+    margin-bottom: 0.5rem; 
 `; 
 
-const StopNameHeading = styled.p`
+const StopNameHeading = styled.span`
     display: inline-block;
     margin-right: 0.5rem; 
     font-weight: bold; 
@@ -27,13 +27,6 @@ const StopIDContainer = styled.span`
 
 const StopInfo = ({ stopId, stopName, operators, isFavourite }) => {
 
-    const theOperators = operators.map((operator, index) => {
-
-        return (
-            <FontAwesomeIcon key={index} icon="circle" color={operator.bg} />
-        ); 
-    });
-
     return (
         <StyledStopInfoContainer>
 
@@ -44,9 +37,7 @@ const StopInfo = ({ stopId, stopName, operators, isFavourite }) => {
 
             </LocationContainer>
 
-            <div>
-                {theOperators}
-            </div>
+            <OperatorInfo operators={operators} />
         </StyledStopInfoContainer>
     );
 };

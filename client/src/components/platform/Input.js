@@ -4,7 +4,7 @@ import styled from 'styled-components';
 const Label = styled.label`
     margin-right: 1rem;  
     display: ${props => props.inline ? 'inline' : 'block'};
-    margin-bottom: 1rem; 
+    margin-bottom: 0.5rem; 
     font-weight: bold; 
 `;
 
@@ -29,7 +29,7 @@ const StyledInput = styled.input`
 const StyledInputContainer = styled.div`
     display: inline-flex; 
     position: relative; 
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
     width: 100%; 
 `
 

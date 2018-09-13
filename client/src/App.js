@@ -22,7 +22,7 @@ import Themes from './utils/ThemeUtil';
 const StyledLink = styled(Link)`
   text-decoration: none; 
   color: ${props => props.theme.background};
-`
+`;
 
 library.add(faLongArrowAltRight, faSpinner, faSync, faExclamationTriangle, faHeart, faSolidHeart, faCircle, faChevronLeft);
 
@@ -35,7 +35,7 @@ class App extends Component {
           <div>
 
             <Nav>
-              <StyledLink to="/">Nav</StyledLink>
+              <StyledLink to="/">Simplí</StyledLink>
             </Nav>
 
             <PageContainer>

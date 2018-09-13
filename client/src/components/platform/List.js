@@ -19,7 +19,7 @@ class List extends React.Component {
         const ListItemComponent = this.props.renderBy;
         const items = this.props.items.map((item, index) => (
             <ListItemComponent onClick={this.props.onItemClick.bind(null, item)} 
-                      key={index} item={item}>
+                      key={this.props.useKey ? item[this.props.useKey] : index} item={item}>
                 {item}
             </ListItemComponent>
         ));

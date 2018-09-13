@@ -25,14 +25,15 @@ const operators = {
 };
 
 export const mapOperator = originalOperator => {
-    const newOperator = operators[originalOperator.name];
+    const newOperator = Object.assign({}, operators[originalOperator.name]);
     newOperator.code = originalOperator.name; 
+    newOperator.routes = originalOperator.routes; 
 
     return newOperator; 
 };
 
 export const mapOperatorByID = originalOperatorID => {
-    const newOperator = operators[originalOperatorID];
+    const newOperator = Object.assign({}, operators[originalOperatorID]);
     newOperator.code = originalOperatorID; 
 
     return newOperator; 

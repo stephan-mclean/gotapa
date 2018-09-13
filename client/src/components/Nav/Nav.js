@@ -16,6 +16,7 @@ const StyledHeader = styled(H5)`
     display: inline; 
     margin: auto; 
     color: ${props => props.theme.background}; 
+    font-family: 'Dancing Script', cursive;
 `;
 
 // TODO: Replace the BackContainer with a Button component.
