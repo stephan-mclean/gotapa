@@ -44,19 +44,22 @@ class StopSearch extends React.Component {
         }
 
         const searchValue = e.target.value; 
-        const searchFn = setTimeout(() => {
+
+        if (searchValue) {
+            const searchFn = setTimeout(() => {
             
-            this.setState({ loading: true });
-            fetch(`/api/search/stops?search=${searchValue}&limit=10&page=1`)
-                .then(response => response.json())
-                .then(data => {
-                    const mappedResults = data.results.map(stop => new StopModel(stop));
-                    this.setState({ searchResults: mappedResults, loading: false });
-                });
-
-        }, 500);
-
-        this.setState({ currentSearchFn: searchFn });
+                this.setState({ loading: true });
+                fetch(`/api/search/stops?search=${searchValue}&limit=10&page=1`)
+                    .then(response => response.json())
+                    .then(data => {
+                        const mappedResults = data.results.map(stop => new StopModel(stop));
+                        this.setState({ searchResults: mappedResults, loading: false });
+                    });
+    
+            }, 500);
+    
+            this.setState({ currentSearchFn: searchFn });
+        }
     }
 
     onSearchResultSelected(item) {

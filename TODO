@@ -12,7 +12,7 @@ Front End:
   [] Show popular stops. 
   [] Handle no results on typeahead
   [] Allow viewing more results on typeahead 
-  [] Fix typeahead searching if nothing input
+  ✔ Fix typeahead searching if nothing input @done(18-09-13 08:46)
   [] Nearby location search. 
   [] Allow searching by route. 
 
