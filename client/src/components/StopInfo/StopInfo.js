@@ -1,13 +1,22 @@
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import OperatorInfo from '../OperatorInfo/OperatorInfo';
+import { isFavourite, updateFavourite } from '../../utils/FavouriteUtil';
 
 const StyledStopInfoContainer = styled.div`
-    padding: 1rem;
+    display: flex; 
+    flex-direction: row; 
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem; 
+    border-bottom: ${props => `1px solid ${props.theme.tertiary}`};
+`;
+
+const LocationOperatorContainer = styled.div`
     display: flex;
     flex-direction: column; 
-    border-bottom: ${props => `1px solid ${props.theme.tertiary}`};
 `;
 
 const LocationContainer = styled.div`
@@ -23,30 +32,60 @@ const StopNameHeading = styled.span`
 
 const StopIDContainer = styled.span`
     color: ${props => props.theme.secondary}; 
-`
+`;
 
-const StopInfo = ({ stopId, stopName, operators, isFavourite }) => {
+class StopInfo extends React.Component {
+    
+    constructor(props) {
+        super(props);
 
-    return (
-        <StyledStopInfoContainer>
+        this.state = { isFavourite: isFavourite(this.props.stopId) };
+        this.favourite = this.favourite.bind(this);
+        this.unFavourite = this.unFavourite.bind(this);
+    }
 
-            <LocationContainer>
+    componentWillUnmount() {
+        updateFavourite(this.props.stopId, this.state.isFavourite);
+    }
 
-                <StopNameHeading>{stopName}</StopNameHeading>
-                <StopIDContainer>#{stopId}</StopIDContainer>
+    favourite() {
+        this.setState({ isFavourite: true });
+    }
 
-            </LocationContainer>
+    unFavourite() {
+        this.setState({ isFavourite: false });
+    }
 
-            <OperatorInfo operators={operators} />
-        </StyledStopInfoContainer>
-    );
-};
+    render() {
+
+        let isFavIcon, isNotFavIcon; 
+
+        if (this.state.isFavourite) {
+            isFavIcon = <FontAwesomeIcon onClick={this.unFavourite} icon="heart" />;
+        } else {
+            isNotFavIcon = <FontAwesomeIcon onClick={this.favourite} icon={['far', 'heart']} />;
+        }
+
+        return (
+            <StyledStopInfoContainer>
+                <LocationOperatorContainer>
+                    <LocationContainer>
+                        <StopNameHeading>{this.props.stopName}</StopNameHeading>
+                        <StopIDContainer>#{this.props.stopId}</StopIDContainer>
+                    </LocationContainer>
+                    <OperatorInfo operators={this.props.operators} />
+                </LocationOperatorContainer>
+
+                {isFavIcon} {isNotFavIcon}
+            </StyledStopInfoContainer>
+        );
+    }
+}
 
 StopInfo.propTypes = {
     stopId: PropTypes.string,
     stopName: PropTypes.string,
-    operators: PropTypes.array,
-    isFavourite: PropTypes.func
+    operators: PropTypes.array
 };
 
 export default StopInfo;
