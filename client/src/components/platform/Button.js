@@ -1,11 +1,14 @@
 import styled from 'styled-components';
 
 export default styled.button`
-    background: ${props => props.theme.tertiary};
+    background: ${props => !props.link ? props.theme.tertiary : 'none'};
+    display: ${props => props.link ? 'inline' : 'block'};
     color: ${props => props.theme.foreground};
-    text-transform: uppercase; 
+    text-transform: ${props => props.link ? 'none' : 'uppercase'};
+    text-decoration: ${props => props.link ? 'underline' : 'none'}; 
     font-size: 0.875rem; 
-    padding: 1rem; 
+    padding: ${props => props.link ? 0 : '1rem'};
+    font-weight: ${props => props.link ? 'bold' : 'default' };  
     border: none; 
     font-family: 'Poppins', sans-serif;
     border-radius: 5px; 

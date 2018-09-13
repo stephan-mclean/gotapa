@@ -23,5 +23,6 @@ const paginate = (req, res) => {
 };
 
 router.get('/stops', cache('1 day'), asyncMiddleware(searchController.searchStops), paginate);
+router.get('/nearby', cache('1 day'), asyncMiddleware(searchController.searchNearbyStops));
 
 module.exports = router; 

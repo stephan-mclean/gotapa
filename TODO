@@ -2,6 +2,7 @@
 Front End:
   [] Allow adding favourites. 
     [] For removal of favourites, show toast icon allowing undo. 
+    [] Allow sorting of favourites by proximity. 
   ✔ Add navigation back from stop screen. @done(18-09-12 15:11)
   [] Add offline PWA behaviour 
     [] Messaging on search, stop page.  
@@ -13,7 +14,7 @@ Front End:
   [] Handle no results on typeahead
   [] Allow viewing more results on typeahead 
   ✔ Fix typeahead searching if nothing input @done(18-09-13 08:46)
-  [] Nearby location search. 
+  ✔ Nearby location search. @done(18-09-13 16:46)
   [] Allow searching by route. 
 
 Backend: 

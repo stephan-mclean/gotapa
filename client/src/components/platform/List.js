@@ -50,7 +50,8 @@ List.propTypes = {
     onItemClick: PropTypes.func,
     renderBy: PropTypes.func,
     title: PropTypes.string,
-    renderTitleBy: PropTypes.func
+    renderTitleBy: PropTypes.func,
+    useKey: PropTypes.string
 };
 
 export default List; 

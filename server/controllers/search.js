@@ -1,4 +1,5 @@
 const Fuse = require('fuse.js');
+const geolib = require('geolib');
 const stopHelper = require('../utils/stops');
 
 const fuseOptions = {
@@ -24,4 +25,22 @@ exports.searchStops = async (req, res, next) => {
 
     res.locals.results = searchResults; 
     next(); 
+};
+
+exports.searchNearbyStops = async(req, res) => {
+    const allStops = await stopHelper.getAllStops();   
+    
+    const { latitude, longitude } = req.query; 
+    const limit = req.query.limit; 
+
+    const searchResult = geolib.findNearest({ latitude, longitude }, allStops, 0, limit);
+
+    const nearest = searchResult.map(result => {
+        const stop = Object.assign({}, allStops[result.key]);
+        stop.distance = result.distance; 
+
+        return stop; 
+    });
+
+    res.send(nearest); 
 };
