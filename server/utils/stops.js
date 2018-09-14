@@ -1,3 +1,5 @@
+// TODO: Preload stops before function call
+// TODO: Set stops in cache instead of local var. 
 const axios = require('axios');
 const API_BASE_URL = require('../utils/api').API_BASE_URL;
 

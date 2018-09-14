@@ -21,7 +21,7 @@ class Stop extends React.Component {
         let stopInfoToShow; 
 
         if (this.state.stopInfo) {
-            stopInfoToShow = <StopInfo {...this.state.stopInfo} />
+            stopInfoToShow = <StopInfo {...this.state.stopInfo} canUpdateFavourite={true} />
         }
 
         return (

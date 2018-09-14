@@ -10,7 +10,7 @@ const StyledStopInfoContainer = styled.div`
     flex-direction: row; 
     justify-content: space-between;
     align-items: center;
-    padding: 1rem; 
+    padding: 0.75rem; 
     border-bottom: ${props => `1px solid ${props.theme.tertiary}`};
 `;
 
@@ -21,7 +21,7 @@ const LocationOperatorContainer = styled.div`
 
 const LocationContainer = styled.div`
     display: inline-block; 
-    margin-bottom: 0.5rem; 
+    margin-bottom: ${props => props.shouldShowOperators ? '0.5rem' : '0'}; 
 `; 
 
 const StopNameHeading = styled.span`
@@ -45,14 +45,19 @@ class StopInfo extends React.Component {
     }
 
     componentWillUnmount() {
-        updateFavourite(this.props.stopId, this.state.isFavourite);
+        const { canUpdateFavourite, shouldShowOperators, ...displayOnlyProps } = this.props; 
+        updateFavourite(displayOnlyProps, this.state.isFavourite);
     }
 
-    favourite() {
+    favourite(e) {
+        e.preventDefault(); 
+        e.stopPropagation(); 
         this.setState({ isFavourite: true });
     }
 
-    unFavourite() {
+    unFavourite(e) {
+        e.preventDefault(); 
+        e.stopPropagation(); 
         this.setState({ isFavourite: false });
     }
 
@@ -60,20 +65,22 @@ class StopInfo extends React.Component {
 
         let isFavIcon, isNotFavIcon; 
 
-        if (this.state.isFavourite) {
-            isFavIcon = <FontAwesomeIcon onClick={this.unFavourite} icon="heart" />;
-        } else {
-            isNotFavIcon = <FontAwesomeIcon onClick={this.favourite} icon={['far', 'heart']} />;
+        if (this.props.canUpdateFavourite) {
+            if (this.state.isFavourite) {
+                isFavIcon = <FontAwesomeIcon onClick={this.unFavourite} icon="heart" />;
+            } else {
+                isNotFavIcon = <FontAwesomeIcon onClick={this.favourite} icon={['far', 'heart']} />;
+            }
         }
 
         return (
             <StyledStopInfoContainer>
                 <LocationOperatorContainer>
-                    <LocationContainer>
+                    <LocationContainer shouldShowOperators={this.props.shouldShowOperators}>
                         <StopNameHeading>{this.props.stopName}</StopNameHeading>
                         <StopIDContainer>#{this.props.stopId}</StopIDContainer>
                     </LocationContainer>
-                    <OperatorInfo operators={this.props.operators} />
+                    {this.props.shouldShowOperators && <OperatorInfo operators={this.props.operators} />}
                 </LocationOperatorContainer>
 
                 {isFavIcon} {isNotFavIcon}
@@ -82,10 +89,17 @@ class StopInfo extends React.Component {
     }
 }
 
+StopInfo.defaultProps = {
+    canUpdateFavourite: false,
+    shouldShowOperators: true
+};
+
 StopInfo.propTypes = {
     stopId: PropTypes.string,
     stopName: PropTypes.string,
-    operators: PropTypes.array
+    operators: PropTypes.array,
+    canUpdateFavourite: PropTypes.bool,
+    shouldShowOperators: PropTypes.bool
 };
 
 export default StopInfo;
