@@ -2,6 +2,7 @@ import React from 'react';
 import RealTimeResults from '../RealTimeResults/RealTimeResults';
 import StopInfo from '../StopInfo/StopInfo';
 import StopModel from '../../models/Stop';
+import { TabSet, Tab, TabHeading, TabBody } from '../TabSet/TabSet';
 
 class Stop extends React.Component {
 
@@ -28,7 +29,23 @@ class Stop extends React.Component {
             <div>
                 {stopInfoToShow}
 
-                <RealTimeResults stopId={this.state.stopId} />
+                <TabSet>
+
+                    <Tab>
+                        <TabHeading>Real time results</TabHeading>
+
+                        <TabBody>
+                            <RealTimeResults stopId={this.state.stopId} />
+                        </TabBody>
+                    </Tab>
+
+                    <Tab>
+                        <TabHeading>Map</TabHeading>
+
+                        <TabBody>Google maps will go here.</TabBody>
+                    </Tab>
+
+                </TabSet>
             </div>
         );
 
