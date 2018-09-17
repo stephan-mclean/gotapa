@@ -16,7 +16,7 @@ const AllHeadingsContainer = styled.div`
     border-radius: 5px; 
 `;
 
-const Tab = ({ children }) => children;
+const Tab = ({ children }) => <div>{children}</div>;
 
 Tab.propTypes = {
     isDefault: PropTypes.bool,
@@ -56,8 +56,6 @@ class TabSet extends React.Component {
     constructor(props) {
         super(props);
 
-        const headings = [];
-        const bodies = [];
         const activeCallBacks = []; 
         let activeTab = 0; 
 
@@ -68,6 +66,21 @@ class TabSet extends React.Component {
             }
 
             activeCallBacks.push(tab.props.onActive);
+        });
+
+        this.state = { activeTab, activeCallBacks };
+    }
+
+    onHeadingClick(index) {
+        this.setState({ activeTab: index });
+        this.state.activeCallBacks[index](); 
+    }
+
+    render() {
+
+        const headings = [];
+        const bodies = []; 
+        React.Children.forEach(this.props.children, (tab) => {
 
             React.Children.forEach(tab.props.children, tabChild => {
                 if (tabChild.type === TabHeading) {
@@ -78,17 +91,7 @@ class TabSet extends React.Component {
             });
         });
 
-        this.state = { activeTab, headings, bodies, activeCallBacks };
-    }
-
-    onHeadingClick(index) {
-        this.setState({ activeTab: index });
-        this.state.activeCallBacks[index](); 
-    }
-
-    render() {
-
-        const headings = this.state.headings.map((Heading, index) => {
+        const mappedHeadings = headings.map((Heading, index) => {
             return (
                 <Heading.type 
                     onClick={this.onHeadingClick.bind(this, index)} 
@@ -98,13 +101,13 @@ class TabSet extends React.Component {
             )
         });
 
-        const ActiveTabBody = this.state.bodies[this.state.activeTab];
+        const ActiveTabBody = bodies[this.state.activeTab];
 
         return (
             <TabSetContainer>
 
                 <AllHeadingsContainer>
-                    {headings}
+                    {mappedHeadings}
                 </AllHeadingsContainer>
 
                 <ActiveTabBody.type {...ActiveTabBody.props} />
