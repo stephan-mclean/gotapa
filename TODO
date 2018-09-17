@@ -23,6 +23,7 @@ Front End:
   [] Look at performance of all components (componentShouldUpdate)
   [] Bug report / feedback form. 
   [] Adsense / monetization. 
+  [] Localization
 
 Backend: 
   ✔ Replace in memory cache with Redis @done(18-09-12 21:04)
