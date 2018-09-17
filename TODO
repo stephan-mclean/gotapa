@@ -19,6 +19,10 @@ Front End:
   [] Do not use permissions API to check for geolocation permission granted (support isn't great.)
   [] Auto-refresh of the real time results
   [] Allow customizing the layout of the home page (nearby or favourites show first?). 
+  [] Theming. 
+  [] Look at performance of all components (componentShouldUpdate)
+  [] Bug report / feedback form. 
+  [] Adsense / monetization. 
 
 Backend: 
   ✔ Replace in memory cache with Redis @done(18-09-12 21:04)
