@@ -17,6 +17,8 @@ Front End:
   ✔ Nearby location search. @done(18-09-13 16:46)
   [] Allow searching by route. 
   [] Do not use permissions API to check for geolocation permission granted (support isn't great.)
+  [] Auto-refresh of the real time results
+  [] Allow customizing the layout of the home page (nearby or favourites show first?). 
 
 Backend: 
   ✔ Replace in memory cache with Redis @done(18-09-12 21:04)
