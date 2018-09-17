@@ -16,6 +16,7 @@ Front End:
   ✔ Fix typeahead searching if nothing input @done(18-09-13 08:46)
   ✔ Nearby location search. @done(18-09-13 16:46)
   [] Allow searching by route. 
+  [] Do not use permissions API to check for geolocation permission granted (support isn't great.)
 
 Backend: 
   ✔ Replace in memory cache with Redis @done(18-09-12 21:04)
