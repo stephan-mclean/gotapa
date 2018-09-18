@@ -33,5 +33,8 @@ MUST DO:
   [] Do not use permissions API to check for geolocation permission granted (support isn't great.)
   [] Restrict number of favourites to display
   [] Look at performance of all components (componentShouldUpdate) 
+  [] Remove external dependency on Fonts. 
+  [] SEO 
+  [] Google Analytics 
 
   
