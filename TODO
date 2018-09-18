@@ -4,7 +4,7 @@ Front End:
     [] For removal of favourites, show toast icon allowing undo. 
   ✔ Add navigation back from stop screen. @done(18-09-12 15:11)
   [] Add offline PWA behaviour (messaging on stop / search page)  
-  [] Add maps. 
+  ✔ Add maps. @done(18-09-18 09:56)
   ✔ Fix styling @done(18-09-12 15:17)
     ✔ Mobile @done(18-09-12 15:17)
     ✔ Typeahead input look. @done(18-09-12 15:17)

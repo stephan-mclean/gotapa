@@ -33,7 +33,7 @@ class StopSearch extends React.Component {
         this.onSearchResultSelected = this.onSearchResultSelected.bind(this);
 
         this.typeaheadRenderSearchBy = props => (
-            <IconInput {...props} icon="spinner" spin hideIcon={!this.state.loading} />
+            <IconInput id="stopSearchInput" {...props} icon="spinner" spin hideIcon={!this.state.loading} />
         );
     } 
 
