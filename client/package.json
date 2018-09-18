@@ -9,6 +9,7 @@
     "@fortawesome/react-fontawesome": "^0.1.2",
     "i": "^0.3.6",
     "npm": "^6.4.1",
+    "pigeon-maps": "^0.10.4",
     "prop-types": "^15.6.2",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",

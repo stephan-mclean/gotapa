@@ -9,7 +9,8 @@ import {
   faHeart as faSolidHeart,
   faCircle,
   faChevronLeft,
-  faInfoCircle 
+  faInfoCircle,
+  faMapPin 
 } from '@fortawesome/free-solid-svg-icons';
 import { faHeart } from '@fortawesome/free-regular-svg-icons';
 import styled, { ThemeProvider } from 'styled-components';
@@ -25,7 +26,8 @@ const StyledLink = styled(Link)`
   color: ${props => props.theme.background};
 `;
 
-library.add(faLongArrowAltRight, faSpinner, faSync, faExclamationTriangle, faHeart, faSolidHeart, faCircle, faChevronLeft, faInfoCircle);
+library.add(faLongArrowAltRight, faSpinner, faSync, faExclamationTriangle, faHeart, 
+  faSolidHeart, faCircle, faChevronLeft, faInfoCircle, faMapPin);
 
 class App extends Component {
 

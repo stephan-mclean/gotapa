@@ -1,5 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
+
+const TabSetContainer = styled.div`
+    margin-top: 0.5rem; 
+`;
 
 const AllHeadingsContainer = styled.div`
     display: flex; 
@@ -8,36 +13,75 @@ const AllHeadingsContainer = styled.div`
     align-content: center;
     align-items: center; 
     border: ${props => `1px solid ${props.theme.tertiary}`};
-    border-bottom: none; 
     border-radius: 5px; 
-    padding: 0.5rem; 
 `;
 
-const Tab = ({ isDefault, onActive, children }) => {
-    return children; 
+const Tab = ({ children }) => <div>{children}</div>;
+
+Tab.propTypes = {
+    isDefault: PropTypes.bool,
+    onActive: PropTypes.func
 };
 
-const StyledTabHeading = styled.div`
+Tab.defaultProps = {
+    onActive: () => {}
+}
+
+const TabHeading = styled.div`
     text-transform: uppercase; 
-    border-bottom: ${props => props.active ? `1px solid ${props.theme.foreground}` : 'none'};
+    font-weight: ${props => props.active ? 'bold' : 'default'};
+    font-size: 0.875rem; 
+    background: ${props => props.active ? props.theme.tertiary : ''}; 
+    flex: 1; 
+    text-align: center; 
+    padding: 0.5rem; 
+    border-right: ${props => `1px solid ${props.theme.tertiary}`}; 
+    cursor: pointer;
+
+    :last-child {
+        border-right: none; 
+    }
+
+    :hover {
+        font-weight: bold; 
+    }
 `;
 
-const TabHeading = ({ children, ...otherProps }) => (
-    <StyledTabHeading {...otherProps}>{children}</StyledTabHeading>
-)
-
-const TabBody = ({ children }) => children; 
+const TabBody = styled.div`
+    padding: 0.5rem; 
+`; 
 
 class TabSet extends React.Component {
 
     constructor(props) {
         super(props);
-        console.log(props.children);
+
+        const activeCallBacks = []; 
+        let activeTab = 0; 
+
+        React.Children.forEach(props.children, (tab, index) => {
+            
+            if (tab.props.isDefault) {
+                activeTab = index; 
+            }
+
+            activeCallBacks.push(tab.props.onActive);
+        });
+
+        this.state = { activeTab, activeCallBacks };
+    }
+
+    onHeadingClick(index) {
+        this.setState({ activeTab: index });
+        this.state.activeCallBacks[index](); 
+    }
+
+    render() {
 
         const headings = [];
-        const bodies = [];
+        const bodies = []; 
+        React.Children.forEach(this.props.children, (tab) => {
 
-        React.Children.forEach(props.children, tab => {
             React.Children.forEach(tab.props.children, tabChild => {
                 if (tabChild.type === TabHeading) {
                     headings.push(tabChild);
@@ -47,38 +91,28 @@ class TabSet extends React.Component {
             });
         });
 
-        this.state = { activeTab: 0, headings: headings, bodies: bodies };
-    }
-
-    onHeadingClick(index) {
-        console.log('heading click', index);
-
-        this.setState({ activeTab: index });
-    }
-
-    render() {
-
-        const headings = this.state.headings.map((Heading, index) => {
-            console.log(Heading);
+        const mappedHeadings = headings.map((Heading, index) => {
             return (
-                <div key={'Tabheading' + index} onClick={this.onHeadingClick.bind(this, index)}>
-                    <Heading.type {...Heading.props} active={index === this.state.activeTab} />
-                </div>
+                <Heading.type 
+                    onClick={this.onHeadingClick.bind(this, index)} 
+                    key={'Tabheading' + index} 
+                    {...Heading.props} 
+                    active={index === this.state.activeTab} />
             )
         });
 
-        const ActiveTabBody = this.state.bodies[this.state.activeTab];
+        const ActiveTabBody = bodies[this.state.activeTab];
 
         return (
-            <div>
+            <TabSetContainer>
 
                 <AllHeadingsContainer>
-                    {headings}
+                    {mappedHeadings}
                 </AllHeadingsContainer>
 
                 <ActiveTabBody.type {...ActiveTabBody.props} />
 
-            </div>
+            </TabSetContainer>
         )
     }
 
