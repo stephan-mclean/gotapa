@@ -34,7 +34,6 @@ MUST DO:
   [] Restrict number of favourites to display
   [] Look at performance of all components (componentShouldUpdate) 
   [] Remove external dependency on Fonts. 
-  [] SEO 
-  [] Google Analytics 
+  [] SEO
 
   
