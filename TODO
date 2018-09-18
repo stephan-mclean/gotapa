@@ -28,7 +28,7 @@ Backend:
 
 
 MUST DO: 
-  [] Add offline PWA behaviour (messaging on stop / search page)  
+  [] Add offline PWA behaviour (messaging on stop / search page). Also add iconography for PWA.  
   [] Handle no results on typeahead
   [] Do not use permissions API to check for geolocation permission granted (support isn't great.)
   [] Restrict number of favourites to display
