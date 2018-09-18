@@ -19,7 +19,6 @@ const TitleContainer = styled.label`
     margin-top: 0.5rem; 
 `;
 
-// TODO: Restrict number of favourites to display? 
 class Favourites extends React.Component {
 
     constructor(props) {

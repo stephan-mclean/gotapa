@@ -3,25 +3,21 @@ Front End:
   ✔ Allow adding favourites. @done(18-09-14 13:11)
     [] For removal of favourites, show toast icon allowing undo. 
   ✔ Add navigation back from stop screen. @done(18-09-12 15:11)
-  [] Add offline PWA behaviour (messaging on stop / search page)  
   ✔ Add maps. @done(18-09-18 09:56)
   ✔ Fix styling @done(18-09-12 15:17)
     ✔ Mobile @done(18-09-12 15:17)
     ✔ Typeahead input look. @done(18-09-12 15:17)
   [] Show popular stops. 
-  [] Handle no results on typeahead
   [] Allow viewing more results on typeahead 
   ✔ Fix typeahead searching if nothing input @done(18-09-13 08:46)
   ✔ Nearby location search. @done(18-09-13 16:46)
   [] Allow searching by route. 
-  [] Do not use permissions API to check for geolocation permission granted (support isn't great.)
   [] Auto-refresh of the real time results
   [] Allow customizing the layout of the home page (nearby or favourites show first?). 
   [] Theming. 
-  [] Look at performance of all components (componentShouldUpdate)
-  [] Bug report / feedback form. 
-  [] Adsense / monetization. 
   [] Localization
+  [] Adsense / monetization. 
+  [] Bug report / feedback form.
 
 Backend: 
   ✔ Replace in memory cache with Redis @done(18-09-12 21:04)
@@ -29,5 +25,13 @@ Backend:
   [] Add endpoint for popular stops. 
   [] Allow searching by route. 
   ✔ Look at searching with spaces in the search string. @done(18-09-12 10:33)
+
+
+MUST DO: 
+  [] Add offline PWA behaviour (messaging on stop / search page)  
+  [] Handle no results on typeahead
+  [] Do not use permissions API to check for geolocation permission granted (support isn't great.)
+  [] Restrict number of favourites to display
+  [] Look at performance of all components (componentShouldUpdate) 
 
   
