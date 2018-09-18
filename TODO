@@ -25,7 +25,7 @@ Front End:
 
 Backend: 
   ✔ Replace in memory cache with Redis @done(18-09-12 21:04)
-  [] Preload stops on server start
+  ✔ Preload stops on server start @done(18-09-18 11:00)
   [] Add endpoint for popular stops. 
   [] Allow searching by route. 
   ✔ Look at searching with spaces in the search string. @done(18-09-12 10:33)
