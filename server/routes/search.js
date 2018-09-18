@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router(); 
 
-const cache = require('../utils/cache');
+const cache = require('../utils/cache').cache;
 const searchController = require('../controllers/search');
 const asyncMiddleware = require('../utils/asyncMiddleware');
 

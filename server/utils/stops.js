@@ -2,29 +2,52 @@
 // TODO: Set stops in cache instead of local var. 
 const axios = require('axios');
 const API_BASE_URL = require('../utils/api').API_BASE_URL;
+const StopsCache = require('./stopcache');
 
-let stops; 
+const cache = new StopsCache();  
+
+let callInProgressPromise; 
 
 const getAllStops = async () => {
-    if (stops) {
-        return stops; 
+
+    const cached = cache.getCachedStops();  
+
+    if (cached) {
+        console.log('returning cached');
+        return cached; 
     }
 
-    try {
-        stops = (await axios.get(`${API_BASE_URL}/busstopinformation?stopid&format=json`)).data.results; 
-        return stops;
-    } catch (err) {
-        console.error(err);
+    if (callInProgressPromise) {
+        console.log('call in progress - waiting');
+        return callInProgressPromise.then(result => result, error => { throw new Error(error); } );
     }
+
+    console.log('no call in progress - setting');
+    callInProgressPromise = new Promise(async (resolve, reject) => {
+
+        try {
+            const stops = (await axios.get(`${API_BASE_URL}/busstopinformation?stopid&format=json`)).data.results;
+            cache.setCachedStops(stops); 
+            console.log('call in progress - resolving');
+            resolve(stops);
+        } catch (err) {
+            reject(error); 
+        }
+    });
+
+    console.log('returning new call');
+    return callInProgressPromise.then(result => result, error => { throw new Error(error); } );
+
 };
+
+// Preload
+getAllStops(); 
 
 exports.getAllStops = getAllStops; 
 
 exports.getStop = async id => {
 
-    if (!stops) {
-        await getAllStops(); 
-    }
-    
+    const stops =  await getAllStops();  
+
     return stops.find(stop => stop.stopid === id);
 };
