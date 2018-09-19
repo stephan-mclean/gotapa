@@ -45,6 +45,7 @@ class StopSearch extends React.Component {
 
         let searchValue = e.target.value; 
 
+        searchValue = searchValue.trim ? searchValue.trim() : searchValue; 
         if (searchValue) {
             searchValue = searchValue.toLowerCase ? searchValue.toLowerCase() : searchValue; 
             const searchFn = setTimeout(() => {
