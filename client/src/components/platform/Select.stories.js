@@ -13,6 +13,8 @@ stories.add('Select', () => (
 
             <Select label="With Label" options={[4, 5, 6]} />
 
+            <Select label="With Inline Label" inline options={[7, 8, 9]} />
+
             <Select label="With Render By" 
                     options={[{ name: 'ONE', value: 'one' }, { name: 'TWO', value: 'two' }]}
                     renderOptionsBy="name" />

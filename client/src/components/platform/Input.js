@@ -30,7 +30,7 @@ const StyledInputContainer = styled.div`
     display: inline-flex; 
     position: relative; 
     margin-bottom: 0.5rem;
-    width: 100%; 
+    width: ${props => !props.inline ? '100%' : 'auto'}; 
 `;
 
 class Input extends React.Component {
@@ -47,7 +47,7 @@ class Input extends React.Component {
         return (
             <div>
                 {label}
-                <StyledInputContainer>
+                <StyledInputContainer inline={inline}>
                     <StyledInput {...withoutChildren}></StyledInput>
                     {children}
                 </StyledInputContainer>

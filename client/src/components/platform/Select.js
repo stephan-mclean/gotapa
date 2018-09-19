@@ -5,24 +5,40 @@ import List from './List';
 
 const Container = styled.div`
     outline: none; 
+    display: flex; 
+    flex-direction: ${props => props.inline ? 'row' : 'column'};
+    align-items: ${props => props.inline ? 'center' : 'default'};
 `;
 
 const StyledInputContainer = styled.div` 
     margin-bottom: 0.5rem;
-    width: 100%; 
+    width: ${props => !props.inline ? '100%' : 'auto'}; 
+    display: ${props => props.inline ? 'inline-block' : 'block'};
+    position: relative; 
+    background: ${props => props.theme.background};
 `;
 
 const StyledSelect = styled.div`
+    color: ${props => props.theme.secondary};
     padding: 0.5rem;
     border: ${props => `1px solid ${props.theme.tertiary}`}; 
     border-radius: 5px; 
 `;
 
 const Label = styled.label`
-    margin-right: 1rem;  
+    margin-right: 0.5rem;  
     display: ${props => props.inline ? 'inline' : 'block'};
     margin-bottom: 0.5rem; 
     font-weight: bold; 
+`;
+
+const StyledList = styled(List)`
+    position: absolute;
+    width: 100%; 
+    background: ${props => props.theme.background};
+    margin-top: 0; 
+    border-top: none; 
+    z-index: 100; 
 `;
 
 class Select extends React.Component {
@@ -69,18 +85,18 @@ class Select extends React.Component {
                     <li {...props}>{props.item[this.props.renderOptionsBy]}</li>
                 );
     
-                options = <List items={this.props.options} renderBy={customListItem}></List>
+                options = <StyledList items={this.props.options} renderBy={customListItem}></StyledList>
     
             } else {
                 console.log('regular options');
-                options = <List items={this.props.options} />
+                options = <StyledList items={this.props.options} />
             }
         }
 
         return (
-            <Container tabIndex="1" onFocus={this.onFocus} onBlur={this.onBlur}>
+            <Container inline={inline} tabIndex="1" onFocus={this.onFocus} onBlur={this.onBlur}>
                 {label}
-                <StyledInputContainer>
+                <StyledInputContainer inline={inline}>
                     
                     <StyledSelect {...withoutChildren}>
                         {this.state.value || this.state.placeholder}
