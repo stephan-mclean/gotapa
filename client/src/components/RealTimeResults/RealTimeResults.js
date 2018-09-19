@@ -8,6 +8,7 @@ import RealTimeResult from '../RealTimeResult/RealTimeResult';
 import RealTimeEntryModel from '../../models/RealTimeEntry';
 import Loading from '../Loading/Loading';
 import IconMessage from '../IconMessage/IconMessage';
+import Button from '../platform/Button';
 
 const CustomList = styled(List)`
     border: none; 
@@ -30,17 +31,18 @@ class RealTimeResults extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = { results: [], loading: false };
+        this.state = { results: [], loading: false, error: false };
         this.loadResults = this.loadResults.bind(this);
     }
 
     loadResults() {
         const { stopId } = this.props; 
 
-        this.setState({ loading: true });
+        this.setState({ loading: true, error: false });
         fetch(`/api/stops/${stopId}/realtimeinfo`)
             .then(response => response.json())
-            .then(data => this.setState({ results: data.results.map(result => new RealTimeEntryModel(result)), loading: false }));
+            .then(data => this.setState({ results: data.results.map(result => new RealTimeEntryModel(result)), loading: false }))
+            .catch(error => this.setState({ error: true, loading: false }));
     }
 
     componentDidMount() {
@@ -50,7 +52,11 @@ class RealTimeResults extends React.Component {
     render() {
 
         const refreshIcon = <RefreshContainer><FontAwesomeIcon onClick={this.loadResults} icon="sync" /></RefreshContainer>
-        if (this.state.loading) {
+        if (this.state.error) {
+            return (
+                <IconMessage icon="exclamation-triangle">Something went wrong loading real time results. <Button onClick={this.loadResults} link>Click here</Button> to retry.</IconMessage>
+            );
+        } else if (this.state.loading) {
             return (
                 <Loading message="Loading real time results..."/>
             );
@@ -65,7 +71,7 @@ class RealTimeResults extends React.Component {
             return (
                 <div>
                     {refreshIcon}
-                    <IconMessage icon="exclamation-triangle" message="No real time results found." />
+                    <IconMessage icon="exclamation-triangle">No real time results found.</IconMessage>
                 </div>
             );
         }

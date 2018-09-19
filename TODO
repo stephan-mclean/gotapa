@@ -35,8 +35,8 @@ MUST DO:
   [] Look at performance of all components (componentShouldUpdate) 
   [] Remove external dependency on Fonts. 
   [] SEO
-  [] Improve error handling. 
+  ✔ Improve error handling. @done(18-09-19 10:52)
   [] Only cache stop ID's to improve memory efficiency. 
-  [] Convert search query to lower case + allow alphanumeric only. 
+  ✔ Convert search query to lower case + allow alphanumeric only. @done(18-09-19 10:52)
 
   

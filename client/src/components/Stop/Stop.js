@@ -6,6 +6,8 @@ import RealTimeResults from '../RealTimeResults/RealTimeResults';
 import StopInfo from '../StopInfo/StopInfo';
 import StopModel from '../../models/Stop';
 import { TabSet, Tab, TabHeading, TabBody } from '../TabSet/TabSet';
+import IconMessage from '../IconMessage/IconMessage';
+import Button from '../platform/Button';
 
 const CustomMaker = styled(FontAwesomeIcon)`
     position: absolute; 
@@ -21,10 +23,16 @@ class Stop extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = { stopInfo: null, coords: null, stopId: this.props.match.params.stopId };
+        this.state = { stopInfo: null, error: false, coords: null, stopId: this.props.match.params.stopId };
+        this.fetchStop = this.fetchStop.bind(this);
     }
 
     componentDidMount() {
+        this.fetchStop(); 
+    }
+
+    fetchStop() {
+        this.setState({ error: false });
         fetch(`/api/stops/${this.state.stopId}`)
             .then(response => response.json())
             .then(data => {
@@ -33,7 +41,8 @@ class Stop extends React.Component {
                 const coords = Object.values({ latitude, longitude });
 
                 this.setState({ stopInfo, coords });
-            });
+            })
+            .catch(error => this.setState({ error: true }));
     }
 
     render() {
@@ -46,6 +55,14 @@ class Stop extends React.Component {
                     <CustomMakerContainer anchor={this.state.coords} />
                 </Map>
             );
+        }
+
+        if (this.state.error) {
+
+            return (
+                <IconMessage icon="exclamation-triangle">Something went wrong. <Button onClick={this.fetchStop} link>Click here</Button> to retry</IconMessage>
+            );
+
         }
 
         return (

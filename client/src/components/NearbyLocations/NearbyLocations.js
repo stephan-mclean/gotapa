@@ -46,7 +46,8 @@ class NearbyLocations extends React.Component {
             timeout: 5000
         };
 
-        this.setState({ loading: true });
+        this.setState({ loading: true, error: false });
+
         navigator.geolocation.getCurrentPosition(position => {
             this.setState({ geolocationAllowed: true});
             const { latitude, longitude } = position.coords; 
@@ -54,12 +55,17 @@ class NearbyLocations extends React.Component {
                 .then(response => response.json())
                 .then(data => {
                     const mappedLocations = data.map(stop => new StopModel(stop));
-                    this.setState({ locations: mappedLocations, loading: false });
-                });
+                    this.setState({ locations: mappedLocations, loading: false});
+                })
+                .catch(error => this.setState({ loading: false, error: true }));
         }, error => {
+            this.setState({ loading: false});
+
+            // Don't show user declination as an error
             if (error.code === POSITION_UNAVAILABLE || error.code === POSITION_TIMEOUT) {
-                this.setState({ loading: false, error: true });
+                this.setState({ error: true });
             }
+
         }, options);
     }
 
@@ -75,7 +81,16 @@ class NearbyLocations extends React.Component {
 
         const title = <TitleContainer>Nearby Locations</TitleContainer>;
 
-        if (this.state.loading) {
+        if (this.state.error) {
+            return (
+                <div>
+                    {title}
+                    <IconMessage icon="exclamation-triangle">
+                        Something went wrong loading nearby locations. <Button link onClick={this.tryToEnableLocation}>Click here</Button> to retry. 
+                    </IconMessage>
+                </div>
+            ); 
+        } else if (this.state.loading) {
             return (
                 <div>
                     {title}
@@ -102,18 +117,11 @@ class NearbyLocations extends React.Component {
                           useKey="stopId" onItemClick={this.onLocationClicked} />
                 </div>
             );
-        } else if (this.state.error) {
-            return (
-                <div>
-                    {title}
-                    <IconMessage icon="exclamation-triangle" message="Something went wrong loading nearby locations..." />
-                </div>
-            ); 
         } else {
             return (
                 <div>
                     {title}
-                    <IconMessage icon="exclamation-triangle" message="No nearby locations found." />
+                    <IconMessage icon="exclamation-triangle">No nearby locations found.</IconMessage>
                 </div>
             );
         }

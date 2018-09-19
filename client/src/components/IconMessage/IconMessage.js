@@ -15,12 +15,12 @@ const LoadingTextContainer = styled.div`
 `;
 
 export default props => {
-    const { icon, message, ...otherProps } = props; 
+    const { icon, children, ...otherProps } = props; 
 
     return (
         <LoadingContainer>
                 <FontAwesomeIcon icon={icon} {...otherProps} />
-                <LoadingTextContainer>{message}</LoadingTextContainer>
+                <LoadingTextContainer>{children}</LoadingTextContainer>
         </LoadingContainer>
     );
 }

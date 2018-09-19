@@ -43,9 +43,10 @@ class StopSearch extends React.Component {
             clearTimeout(this.state.currentSearchFn);
         }
 
-        const searchValue = e.target.value; 
+        let searchValue = e.target.value; 
 
         if (searchValue) {
+            searchValue = searchValue.toLowerCase ? searchValue.toLowerCase() : searchValue; 
             const searchFn = setTimeout(() => {
             
                 this.setState({ loading: true });
@@ -54,7 +55,8 @@ class StopSearch extends React.Component {
                     .then(data => {
                         const mappedResults = data.results.map(stop => new StopModel(stop));
                         this.setState({ searchResults: mappedResults, loading: false });
-                    });
+                    })
+                    .catch(err => this.setState({ loading: false }))
     
             }, 500);
     
