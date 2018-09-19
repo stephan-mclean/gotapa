@@ -10,6 +10,8 @@ const StyledList = styled.ul`
     border: ${props => `1px solid ${props.theme.tertiary}`}; 
     border-radius: 5px;  
     padding: 0; 
+    margin-bottom: 0.5rem; 
+    margin-top: 0.5rem; 
 `;
 
 class List extends React.Component {

@@ -52,13 +52,13 @@ class StopInfo extends React.Component {
     favourite(e) {
         e.preventDefault(); 
         e.stopPropagation(); 
-        this.setState({ isFavourite: true });
+        this.setState({ isFavourite: true }, () => this.props.onFavourite(this.props.stopId));
     }
 
     unFavourite(e) {
         e.preventDefault(); 
         e.stopPropagation(); 
-        this.setState({ isFavourite: false });
+        this.setState({ isFavourite: false }, () => this.props.onUnFavourite(this.props.stopId));
     }
 
     render() {
@@ -91,7 +91,9 @@ class StopInfo extends React.Component {
 
 StopInfo.defaultProps = {
     canUpdateFavourite: false,
-    shouldShowOperators: true
+    shouldShowOperators: true,
+    onFavourite: () => {},
+    onUnFavourite: () => {}
 };
 
 StopInfo.propTypes = {
@@ -99,7 +101,9 @@ StopInfo.propTypes = {
     stopName: PropTypes.string,
     operators: PropTypes.array,
     canUpdateFavourite: PropTypes.bool,
-    shouldShowOperators: PropTypes.bool
+    shouldShowOperators: PropTypes.bool,
+    onFavourite: PropTypes.func,
+    onUnFavourite: PropTypes.func
 };
 
 export default StopInfo;

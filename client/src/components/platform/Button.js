@@ -1,5 +1,15 @@
 import styled from 'styled-components';
 
+const getFloat = (left, right) => {
+    if (left) {
+        return 'left'; 
+    } else if (right) {
+        return 'right';
+    }
+
+    return 'none';
+}
+
 export default styled.button`
     background: ${props => !props.link ? props.theme.tertiary : 'none'};
     display: ${props => props.link ? 'inline' : 'block'};
@@ -14,6 +24,7 @@ export default styled.button`
     border-radius: 5px; 
     outline: none; 
     cursor: pointer;
+    float: ${props => getFloat(props.left, props.right)};
 
     :active {
         background: ${props => props.theme.secondary}; 

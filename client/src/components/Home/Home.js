@@ -6,7 +6,7 @@ import Favourites from '../Favourites/Favourites';
 export default () => (
     <div>
         <StopSearch />
-        <NearbyLocations />
         <Favourites />
+        <NearbyLocations />
     </div>
 );
