@@ -36,5 +36,7 @@ MUST DO:
   [] Remove external dependency on Fonts. 
   [] SEO
   [] Improve error handling. 
+  [] Only cache stop ID's to improve memory efficiency. 
+  [] Convert search query to lower case + allow alphanumeric only. 
 
   
