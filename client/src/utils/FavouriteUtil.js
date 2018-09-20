@@ -18,7 +18,10 @@ export const getFavourites = () => {
         return favourites; 
     }
 
-    return favourites;
+    return favourites.map(fav => {
+        fav.dateFavourited = fav.dateFavourited ? new Date(fav.dateFavourited) : null; 
+        return fav; 
+    });
 };
 
 export const isFavourite = stopId => {
@@ -30,6 +33,7 @@ export const updateFavourite = (stop, isFavourite) => {
     const favourites = getFavourites(); 
 
     if (isFavourite && !isFav(stop.stopId, favourites)) {
+        stop.dateFavourited = new Date(); 
         favourites.push(stop);
     } else if (!isFavourite && isFav(stop.stopId, favourites)) {
         favourites.splice(favourites.findIndex(fav => fav.stopId === stop.stopId), 1);
