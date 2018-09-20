@@ -30,11 +30,22 @@ const StyledInputContainer = styled.div`
     width: ${props => !props.inline ? '100%' : 'auto'}; 
 `;
 
-class Select extends React.Component {
-
-    constructor(props) {
-        super(props);
+const getFloat = (left, right) => {
+    if (left) {
+        return 'left';
+    } else if (right) {
+        return 'right';
     }
+
+    return 'none';
+}
+
+const Container = styled.div`
+    display: ${props => props.inline ? 'inline-block' : 'block'};
+    float: ${props => getFloat(props.left, props.right)};
+`;
+
+class Select extends React.Component {
 
     render() {
 
@@ -47,12 +58,12 @@ class Select extends React.Component {
 
         const { children, ...withoutChildren } = this.props; 
         return (
-            <div>
+            <Container inline={inline} left={this.props.left} right={this.props.right}>
                 {label}
                 <StyledInputContainer inline={inline}>
                     <StyledSelect {...withoutChildren}>{children}</StyledSelect>
                 </StyledInputContainer>
-            </div>
+            </Container>
         );
 
     }

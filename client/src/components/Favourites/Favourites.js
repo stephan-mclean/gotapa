@@ -8,9 +8,14 @@ import StopInfo from '../StopInfo/StopInfo';
 import StopModel from '../../models/Stop';
 import InfoMessage from '../InfoMessage/InfoMessage';
 import Button from '../platform/Button';
+import Select from '../platform/Select';
+
+const Container = styled.div`
+    margin-top: 0.5rem; 
+`;
 
 const TitleContainer = styled.label`
-    display: block; 
+    display: inline-block; 
     font-weight: bold; 
     margin-top: 0.5rem; 
 `;
@@ -84,14 +89,20 @@ class Favourites extends React.Component {
             ? this.state.favourites.slice(0, LIMITED_MAX_TO_DISPLAY)
             : this.state.favourites;
         return (
-            <div>
+            <Container>
                 {title}
+                <Select inline right>
+                    <option value="">Sort</option>
+                    <option value="newest">Newest First</option>
+                    <option value="oldest">Oldest First</option>
+                    <option value="alpha">A-Z</option>
+                </Select>
                 <List items={limited} 
                         renderBy={this.FavouritesRenderBy} 
                         useKey="stopId" 
                         onItemClick={this.onFavouriteClicked} />
                 {hasMoreThanLimit && <Button link right>View All Favourites</Button>}
-            </div>
+            </Container>
         )
         
     }

@@ -12,6 +12,10 @@ import Button from '../platform/Button';
 const POSITION_UNAVAILABLE = 2; 
 const POSITION_TIMEOUT = 3; 
 
+const Container = styled.div`
+    margin-top: 0.5rem; 
+`;
+
 const TitleContainer = styled.label`
     display: block; 
     font-weight: bold; 
@@ -83,46 +87,46 @@ class NearbyLocations extends React.Component {
 
         if (this.state.error) {
             return (
-                <div>
+                <Container>
                     {title}
                     <IconMessage icon="exclamation-triangle">
                         Something went wrong loading nearby locations. <Button link onClick={this.tryToEnableLocation}>Click here</Button> to retry. 
                     </IconMessage>
-                </div>
+                </Container>
             ); 
         } else if (this.state.loading) {
             return (
-                <div>
+                <Container>
                     {title}
                     <Loading message="Loading nearby locations..." />
-                </div>
+                </Container>
             );
         } else if (!this.state.geolocationAllowed) {
             return (
-                <div>
+                <Container>
                     {title}
                     <InfoMessage>
                         <Button onClick={this.tryToEnableLocation} link>
                             Click here
                         </Button> to show nearby locations.
                     </InfoMessage>
-                </div>
+                </Container>
             );
         } else if (this.state.locations && this.state.locations.length) {
             return (
-                <div>
+                <Container>
                     {title}
                     <List items={this.state.locations} 
                           renderBy={LocationsRenderBy} 
                           useKey="stopId" onItemClick={this.onLocationClicked} />
-                </div>
+                </Container>
             );
         } else {
             return (
-                <div>
+                <Container>
                     {title}
                     <IconMessage icon="exclamation-triangle">No nearby locations found.</IconMessage>
-                </div>
+                </Container>
             );
         }
 
