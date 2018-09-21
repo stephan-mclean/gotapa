@@ -15,13 +15,16 @@ const Container = styled.div`
 `;
 
 const TitleContainer = styled.label`
-    display: inline-block; 
+    display: ${props => props.block ? 'block' : 'inline-block'}; 
     font-weight: bold; 
     margin-top: 0.5rem; 
 `;
 
 const LIMITED_MAX_TO_DISPLAY = 5; 
 const DISPLAY_ALL_MAX_TO_DISPLAY = 10; 
+const OLDEST_FIRST = 'oldest';
+const NEWEST_FIRST = 'newest';
+const ALPHA_SORT = 'alpha';
 
 class Favourites extends React.Component {
 
@@ -31,6 +34,7 @@ class Favourites extends React.Component {
         this.state = { favourites: [] };
         this.onFavouriteClicked = this.onFavouriteClicked.bind(this);
         this.onUnFavourite = this.onUnFavourite.bind(this);
+        this.onSortingChanged = this.onSortingChanged.bind(this);
 
         this.FavouritesRenderBy = ({ ...otherProps, item }) => {
             return (
@@ -68,13 +72,34 @@ class Favourites extends React.Component {
         this.setState({ favourites: newFavourites });
     }
 
+    onSortingChanged(e) {
+        const sortBy = e.target.value; 
+        const unSorted = [...this.state.favourites];
+
+        const sorted = unSorted.sort((a, b) => {
+            switch (sortBy) {
+
+                case OLDEST_FIRST: 
+                    return a.dateFavourited > b.dateFavourited; 
+                case NEWEST_FIRST: 
+                    return a.dateFavourited < b.dateFavourited;
+                case ALPHA_SORT: 
+                    return a.stopName > b.stopName; 
+                default: 
+                    console.warn('Unsupported sort operation', sortBy);
+                    return 0; 
+            }
+        });
+
+        this.setState({ favourites: sorted });
+    }
+
     render() {
-        const title = <TitleContainer>Favourites</TitleContainer>;
 
         if (!this.state.favourites || !this.state.favourites.length) {
             return (
                 <div>
-                    {title}
+                    <TitleContainer block>Favourites</TitleContainer>
                     <InfoMessage>You do not have any favourites to display yet.</InfoMessage>
                 </div>
             ); 
@@ -90,12 +115,12 @@ class Favourites extends React.Component {
             : this.state.favourites;
         return (
             <Container>
-                {title}
-                <Select inline right>
-                    <option value="">Sort</option>
-                    <option value="newest">Newest First</option>
-                    <option value="oldest">Oldest First</option>
-                    <option value="alpha">A-Z</option>
+                <TitleContainer>Favourites</TitleContainer>
+                <Select onChange={this.onSortingChanged} inline right>
+                    <option value="">Sort By</option>
+                    <option value={NEWEST_FIRST}>Newest First</option>
+                    <option value={OLDEST_FIRST}>Oldest First</option>
+                    <option value={ALPHA_SORT}>A-Z</option>
                 </Select>
                 <List items={limited} 
                         renderBy={this.FavouritesRenderBy} 

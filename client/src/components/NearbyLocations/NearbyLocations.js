@@ -13,13 +13,14 @@ const POSITION_UNAVAILABLE = 2;
 const POSITION_TIMEOUT = 3; 
 
 const Container = styled.div`
-    margin-top: 0.5rem; 
+    margin-top: 1rem; 
 `;
 
 const TitleContainer = styled.label`
     display: block; 
     font-weight: bold; 
     margin-top: 0.5rem; 
+    margin-bottom: 0.5rem; 
 `;
 
 const LocationsRenderBy = ({ ...otherProps, item }) => {
