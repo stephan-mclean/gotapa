@@ -52,11 +52,10 @@ class Pager extends React.Component {
         const RenderBy = this.props.renderBy;
         return (
             <div>
-                PAGER
                 <RenderBy items={this.state.currentItems}/>
 
                 {this.state.currentPage > 1 && <Button link left onClick={this.goToPrevious}>Previous</Button>}
-                {this.state.currentPage < (this.props.items.length - 1) && <Button link right onClick={this.goToNext}>Next</Button>}
+                { ((this.state.currentPage - 1) * this.props.itemsPerPage) < (this.props.items.length - this.props.itemsPerPage) && <Button link right onClick={this.goToNext}>Next</Button>}
             </div>
         );
 
