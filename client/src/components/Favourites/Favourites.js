@@ -35,6 +35,7 @@ class Favourites extends React.Component {
         this.onFavouriteClicked = this.onFavouriteClicked.bind(this);
         this.onUnFavourite = this.onUnFavourite.bind(this);
         this.onSortingChanged = this.onSortingChanged.bind(this);
+        this.onViewAllFavouritesClicked = this.onViewAllFavouritesClicked.bind(this);
 
         this.FavouritesRenderBy = ({ ...otherProps, item }) => {
             return (
@@ -63,6 +64,10 @@ class Favourites extends React.Component {
 
     onFavouriteClicked(item) {
         this.props.history.push(`/stops/${item.stopId}`);
+    }
+
+    onViewAllFavouritesClicked() {
+        this.props.history.push('/favourites');
     }
 
     onUnFavourite(stopId) {
@@ -126,7 +131,7 @@ class Favourites extends React.Component {
                         renderBy={this.FavouritesRenderBy} 
                         useKey="stopId" 
                         onItemClick={this.onFavouriteClicked} />
-                {hasMoreThanLimit && <Button link right>View All Favourites</Button>}
+                {hasMoreThanLimit && <Button link right onClick={this.onViewAllFavouritesClicked}>View All Favourites</Button>}
             </Container>
         )
         

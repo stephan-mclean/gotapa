@@ -19,6 +19,7 @@ import Nav from './components/Nav/Nav';
 import PageContainer from './components/platform/PageContainer';
 import Home from './components/Home/Home';
 import Stop from './components/Stop/Stop';
+import Favourites from './components/Favourites/Favourites';
 import Themes from './utils/ThemeUtil';
 
 const StyledLink = styled(Link)`
@@ -44,6 +45,7 @@ class App extends Component {
             <PageContainer>
               <Route exact path="/" component={Home}></Route>
               <Route path="/stops/:stopId" component={Stop}></Route>
+              <Route path="/favourites" render={props => <Favourites {...props} displayAll={true} />}></Route>
             </PageContainer>
           </div>
         </ThemeProvider>
