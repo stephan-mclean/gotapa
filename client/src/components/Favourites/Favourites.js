@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { withRouter } from 'react-router-dom';
 import { getFavourites } from '../../utils/FavouriteUtil';
 import List from '../platform/List';
+import Pager from '../Pager/Pager';
 import StopInfo from '../StopInfo/StopInfo';
 import StopModel from '../../models/Stop';
 import InfoMessage from '../InfoMessage/InfoMessage';
@@ -31,11 +32,12 @@ class Favourites extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = { favourites: [] };
+        this.state = { favourites: [], sortBy: null };
         this.onFavouriteClicked = this.onFavouriteClicked.bind(this);
         this.onUnFavourite = this.onUnFavourite.bind(this);
         this.onSortingChanged = this.onSortingChanged.bind(this);
         this.onViewAllFavouritesClicked = this.onViewAllFavouritesClicked.bind(this);
+        this.renderFavouritesList = this.renderFavouritesList.bind(this);
 
         this.FavouritesRenderBy = ({ ...otherProps, item }) => {
             return (
@@ -72,17 +74,19 @@ class Favourites extends React.Component {
 
     onUnFavourite(stopId) {
         const index = this.state.favourites.findIndex(fav => fav.stopId === stopId);
-        const newFavourites = [...this.state.favourites];
+        let newFavourites = [...this.state.favourites];
         newFavourites.splice(index, 1);
+
+        if (this.state.sortBy) {
+            newFavourites = this.doSort(this.state.sortBy, newFavourites);
+        }
+
         this.setState({ favourites: newFavourites });
     }
 
-    onSortingChanged(e) {
-        const sortBy = e.target.value; 
-        const unSorted = [...this.state.favourites];
-
-        const sorted = unSorted.sort((a, b) => {
-            switch (sortBy) {
+    doSort(sorting, unSorted) {
+        return unSorted.sort((a, b) => {
+            switch (sorting) {
 
                 case OLDEST_FIRST: 
                     return a.dateFavourited > b.dateFavourited; 
@@ -91,12 +95,25 @@ class Favourites extends React.Component {
                 case ALPHA_SORT: 
                     return a.stopName > b.stopName; 
                 default: 
-                    console.warn('Unsupported sort operation', sortBy);
+                    console.warn('Unsupported sort operation', sorting);
                     return 0; 
             }
         });
+    }
 
-        this.setState({ favourites: sorted });
+    onSortingChanged(e) {
+        const sortBy = e.target.value; 
+        const sorted = this.doSort(sortBy, [...this.state.favourites]);
+        this.setState({ favourites: sorted, sortBy });
+    }
+
+    renderFavouritesList({ items }) {
+        return (
+            <List items={items} 
+                  renderBy={this.FavouritesRenderBy} 
+                  useKey="stopId" 
+                  onItemClick={this.onFavouriteClicked} />
+        );    
     }
 
     render() {
@@ -109,28 +126,38 @@ class Favourites extends React.Component {
                 </div>
             ); 
         } 
+
+        const sortBy = (
+            <Select onChange={this.onSortingChanged} inline right>
+                    <option value="">Sort By</option>
+                    <option value={NEWEST_FIRST}>Newest First</option>
+                    <option value={OLDEST_FIRST}>Oldest First</option>
+                    <option value={ALPHA_SORT}>A-Z</option>
+            </Select>
+        );
+        const hasMoreThanLimit = this.state.favourites.length > LIMITED_MAX_TO_DISPLAY; 
         
         if (this.props.displayAll) {
-            return <div>Display all here</div>
+            return (
+                <div>
+                    <TitleContainer>Favourites</TitleContainer>
+                    {sortBy}
+                    <Pager items={this.state.favourites} 
+                       renderBy={this.renderFavouritesList}
+                       itemsPerPage={DISPLAY_ALL_MAX_TO_DISPLAY} /> 
+                </div>   
+            );
         }
 
-        const hasMoreThanLimit = this.state.favourites.length > LIMITED_MAX_TO_DISPLAY
+        
         const limited = hasMoreThanLimit 
             ? this.state.favourites.slice(0, LIMITED_MAX_TO_DISPLAY)
             : this.state.favourites;
         return (
             <Container>
                 <TitleContainer>Favourites</TitleContainer>
-                <Select onChange={this.onSortingChanged} inline right>
-                    <option value="">Sort By</option>
-                    <option value={NEWEST_FIRST}>Newest First</option>
-                    <option value={OLDEST_FIRST}>Oldest First</option>
-                    <option value={ALPHA_SORT}>A-Z</option>
-                </Select>
-                <List items={limited} 
-                        renderBy={this.FavouritesRenderBy} 
-                        useKey="stopId" 
-                        onItemClick={this.onFavouriteClicked} />
+                {hasMoreThanLimit && sortBy}
+                {this.renderFavouritesList({ items: limited })}
                 {hasMoreThanLimit && <Button link right onClick={this.onViewAllFavouritesClicked}>View All Favourites</Button>}
             </Container>
         )

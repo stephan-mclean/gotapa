@@ -47,15 +47,23 @@ class Pager extends React.Component {
         this.goToPage(this.state.currentPage - 1);
     }
 
-    render() {
+    componentDidUpdate(prevProps) {
+        if (prevProps.items !== this.props.items) {
+            const currentItems = this.doPage([...this.props.items], this.props.itemsPerPage, this.state.currentPage);
+            this.setState({ currentItems });
+        }
+    }
 
+    render() {
         const RenderBy = this.props.renderBy;
         return (
             <div>
-                <RenderBy items={this.state.currentItems}/>
+                <RenderBy items={this.state.currentItems} />
 
                 {this.state.currentPage > 1 && <Button link left onClick={this.goToPrevious}>Previous</Button>}
-                { ((this.state.currentPage - 1) * this.props.itemsPerPage) < (this.props.items.length - this.props.itemsPerPage) && <Button link right onClick={this.goToNext}>Next</Button>}
+                { ((this.state.currentPage - 1) * this.props.itemsPerPage) < (this.props.items.length - this.props.itemsPerPage) 
+                    && <Button link right onClick={this.goToNext}>Next</Button>
+                }
             </div>
         );
 
