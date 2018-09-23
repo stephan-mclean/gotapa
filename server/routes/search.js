@@ -9,20 +9,24 @@ const paginate = (req, res) => {
     const results = res.locals.results; 
     const { limit, page } = req.query;
 
-    if (limit > 0 && results.length > limit) {
+    if (limit < 1) {
+        throw new Error('Invalid query limit', limit);
+    }
 
+    let finalResults = results; 
+    if (results.length > limit) {
         const startIndex = (page - 1) * limit; 
         const endIndex = page * limit; 
-
-        const pagedResponse = results.slice(startIndex, endIndex);
-        res.send({
-            numberOfResults: results.length,
-            results: pagedResponse
-        });
-    } 
+        finalResults = results.slice(startIndex, endIndex);
+    }
+        
+    res.send({
+        numberOfResults: results.length,
+        results: finalResults
+    });
 };
 
-router.get('/stops', cache('1 day'), asyncMiddleware(searchController.searchStops), paginate);
+router.get('/stops', cache('8 hours'), asyncMiddleware(searchController.searchStops), paginate);
 router.get('/nearby', cache('15 minutes'), asyncMiddleware(searchController.searchNearbyStops));
 
 module.exports = router; 
