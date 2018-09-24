@@ -68,7 +68,7 @@ class Pager extends React.Component {
     componentDidUpdate(prevProps) {
         if (prevProps.items !== this.props.items) {
             const currentItems = this.doPage([...this.props.items], this.props.itemsPerPage, this.state.currentPage);
-            this.setState({ currentItems });
+            this.setState({ currentItems }); // TODO: refactor this, could cause a loop
         }
     }
 
