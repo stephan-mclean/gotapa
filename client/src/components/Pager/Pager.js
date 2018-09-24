@@ -1,7 +1,19 @@
 import React from 'react';
+import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import List from '../platform/List';
 import Button from '../platform/Button';
+
+const ButtonPageContainer = styled.div`
+    display: flex; 
+    flex-direction: row; 
+`;
+
+const PageNumberContainer = styled.span`
+    margin: auto; 
+    color: ${props => props.theme.secondary};
+    font-size: 0.875rem; 
+`;
 
 class Pager extends React.Component {
 
@@ -14,9 +26,15 @@ class Pager extends React.Component {
         this.goToPrevious = this.goToPrevious.bind(this);
 
         const currentPage = 1; 
+        let numberOfPages = Math.floor(props.items.length / props.itemsPerPage);
+        const leftoverItems = props.items.length % props.itemsPerPage;
+        if (leftoverItems) {
+            numberOfPages++;
+        }
+
         const currentItems = this.doPage([...props.items], props.itemsPerPage, currentPage); 
 
-        this.state = { currentItems, currentPage };
+        this.state = { currentItems, currentPage, numberOfPages };
     }
 
     doPage(items, itemsPerPage, page) {
@@ -60,10 +78,20 @@ class Pager extends React.Component {
             <div>
                 <RenderBy items={this.state.currentItems} />
 
-                {this.state.currentPage > 1 && <Button link left onClick={this.goToPrevious}>Previous</Button>}
-                { ((this.state.currentPage - 1) * this.props.itemsPerPage) < (this.props.items.length - this.props.itemsPerPage) 
-                    && <Button link right onClick={this.goToNext}>Next</Button>
-                }
+
+                <ButtonPageContainer>
+
+                    {this.state.currentPage > 1 && <Button link left onClick={this.goToPrevious}>Previous</Button>}
+
+                    <PageNumberContainer>Page {this.state.currentPage} of {this.state.numberOfPages}</PageNumberContainer>
+
+                    { ((this.state.currentPage - 1) * this.props.itemsPerPage) < (this.props.items.length - this.props.itemsPerPage) 
+                        && <Button link right onClick={this.goToNext}>Next</Button>
+                    }
+
+                </ButtonPageContainer>
+
+                
             </div>
         );
 
