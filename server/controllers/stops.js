@@ -5,7 +5,12 @@ const stopsUtil = require('../utils/stops');
 const RecentlyViewedStop = require('../models/recentlyviewedstop');
 
 exports.getStop = async (req, res) => {
-    res.send(await stopsUtil.getStop(req.params.id));
+    try {
+        const stop = await stopsUtil.getStop(req.params.id)
+        res.send(stop);
+    } catch(err) {
+        res.status(400).send(err.message);
+    }
 };
 
 exports.getStopRealtimeInfo = async (req, res) => {

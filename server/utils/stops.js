@@ -44,8 +44,12 @@ getAllStops();
 exports.getAllStops = getAllStops; 
 
 exports.getStop = async id => {
+    const stops =  await getAllStops(); 
+    const theStop = stops.find(stop => stop.stopid === id);
 
-    const stops =  await getAllStops();  
+    if (!theStop) {
+        throw new Error(`Could not find stop: ${id}`);
+    }
 
-    return stops.find(stop => stop.stopid === id);
+    return theStop
 };
