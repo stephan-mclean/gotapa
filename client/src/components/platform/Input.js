@@ -16,12 +16,13 @@ const StyledInput = styled.input`
     flex: 1 0 auto;
     text-align: left; 
     font-size: 1rem; 
+    transition: border 0.3s linear; 
 
     ::placeholder {
         color: ${props => props.theme.tertiary}; 
     }
 
-    :focus {
+    :focus, :hover {
         border: ${props => `1px solid ${props.theme.secondary}`}; 
     }
 `;
