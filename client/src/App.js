@@ -39,7 +39,7 @@ class App extends Component {
           <div>
 
             <Nav>
-              <StyledLink to="/">Simplí</StyledLink>
+              <StyledLink to="/">GoTapa</StyledLink>
             </Nav>
 
             <PageContainer>
