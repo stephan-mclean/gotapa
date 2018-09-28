@@ -44,3 +44,32 @@ exports.searchNearbyStops = async(req, res) => {
 
     res.send(nearest); 
 };
+
+exports.searchWithinBounds = async(req, res) => {
+    const allStops = await stopHelper.getAllStops();  
+
+    const { northWestLat, northWestLon, northEastLat, northEastLon, southWestLat, southWestLon, southEastLat, southEastLon } = req.query; 
+
+    const bounds = [
+        {
+            latitude: northWestLat,
+            longitude: northWestLon
+        },
+        {
+            latitude: northEastLat,
+            longitude: northEastLon
+        },
+        {
+            latitude: southWestLat,
+            longitude: southWestLon
+        },
+        {
+            latitude: southEastLat,
+            longitude: southEastLon
+        }
+    ];
+
+    const stopsInBounds = allStops.map(stop => geolib.isPointInside(stop, bounds) ? stop : null).filter(n => !!n);
+
+    res.send(stopsInBounds);
+};

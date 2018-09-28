@@ -28,7 +28,9 @@ Backend:
 
 
 MUST DO: 
-  [] Add offline PWA behaviour (messaging on stop / search page). Also add iconography for PWA.  
+  [] Add offline PWA behaviour (messaging on stop / search page). Also add iconography for PWA. Update PWA for Apple. Fix initial URL
+  [] Map view. 
+  [] Footer. 
   ✔ Do not use permissions API to check for geolocation permission granted (support isn't great.) @done(18-09-18 19:52)
   ✔ Restrict number of favourites to display @done(18-09-23 17:19)
   [] Look at performance of all components (componentShouldUpdate) 

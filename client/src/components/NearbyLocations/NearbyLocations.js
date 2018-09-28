@@ -13,13 +13,12 @@ const POSITION_UNAVAILABLE = 2;
 const POSITION_TIMEOUT = 3; 
 
 const Container = styled.div`
-    margin-top: 1rem; 
+    margin-top: 2.5rem; 
 `;
 
 const TitleContainer = styled.label`
-    display: block; 
-    font-weight: bold; 
-    margin-top: 0.5rem; 
+    display: inline-block; 
+    font-weight: bold;  
     margin-bottom: 0.5rem; 
 `;
 
@@ -106,6 +105,7 @@ class NearbyLocations extends React.Component {
             return (
                 <Container>
                     {title}
+                    <Button link right>View on map</Button>
                     <InfoMessage>
                         <Button onClick={this.tryToEnableLocation} link>
                             Click here

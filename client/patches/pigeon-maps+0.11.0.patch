@@ -1,0 +1,29 @@
+patch-package
+--- a/node_modules/pigeon-maps/lib/react/index.js
++++ b/node_modules/pigeon-maps/lib/react/index.js
+@@ -635,8 +635,10 @@ var Map = function (_Component) {
+           height = _this$state5.height;
+ 
+       return {
++        nw: _this.pixelToLatLng([0, 0], center, zoom),
+         ne: _this.pixelToLatLng([width - 1, 0], center, zoom),
+-        sw: _this.pixelToLatLng([0, height - 1], center, zoom)
++        sw: _this.pixelToLatLng([0, height - 1], center, zoom),
++        se: _this.pixelToLatLng([width - 1, height - 1], center, zoom)
+       };
+     };
+ 
+--- a/node_modules/pigeon-maps/src/index.js
++++ b/node_modules/pigeon-maps/src/index.js
+@@ -735,8 +735,10 @@ export default class Map extends Component {
+     const { width, height } = this.state
+ 
+     return {
++      nw: this.pixelToLatLng([0, 0], center, zoom),
+       ne: this.pixelToLatLng([width - 1, 0], center, zoom),
+-      sw: this.pixelToLatLng([0, height - 1], center, zoom)
++      sw: this.pixelToLatLng([0, height - 1], center, zoom),
++      se: this.pixelToLatLng([width - 1, height - 1], center, zoom)
+     }
+   }
+ 

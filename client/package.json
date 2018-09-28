@@ -9,7 +9,7 @@
     "@fortawesome/react-fontawesome": "^0.1.2",
     "i": "^0.3.6",
     "npm": "^6.4.1",
-    "pigeon-maps": "^0.10.4",
+    "pigeon-maps": "^0.11.0",
     "prop-types": "^15.6.2",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
@@ -18,17 +18,20 @@
     "styled-components": "^3.4.5"
   },
   "scripts": {
+    "prepare": "patch-package",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "storybook": "start-storybook -p 9001 -c .storybook"
+    "storybook": "start-storybook -p 9001 -c .storybook",
+    "patch-package": "patch-package"
   },
   "devDependencies": {
     "@sambego/storybook-state": "^1.2.0",
     "@storybook/addon-actions": "^3.4.10",
     "@storybook/addon-knobs": "^3.4.10",
-    "@storybook/react": "^3.4.10"
+    "@storybook/react": "^3.4.10",
+    "patch-package": "^5.1.1"
   },
   "proxy": "http://localhost:5000/"
 }

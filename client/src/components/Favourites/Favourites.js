@@ -13,12 +13,17 @@ import Select from '../platform/Select';
 
 const Container = styled.div`
     margin-top: 0.5rem; 
+    margin-bottom: ${props => props.shouldAddMarginBottom ? '1.5rem' : 'none'};
 `;
 
 const TitleContainer = styled.label`
     display: ${props => props.block ? 'block' : 'inline-block'}; 
     font-weight: bold; 
     margin-top: 0.5rem; 
+`;
+
+const ShowAllBtn = styled(Button)`
+    margin-bottom: 1.5rem; 
 `;
 
 const LIMITED_MAX_TO_DISPLAY = 5; 
@@ -154,11 +159,11 @@ class Favourites extends React.Component {
             ? this.state.favourites.slice(0, LIMITED_MAX_TO_DISPLAY)
             : this.state.favourites;
         return (
-            <Container>
+            <Container shouldAddMarginBottom={!hasMoreThanLimit}>
                 <TitleContainer>Favourites</TitleContainer>
                 {hasMoreThanLimit && sortBy}
                 {this.renderFavouritesList({ items: limited })}
-                {hasMoreThanLimit && <Button link right onClick={this.onViewAllFavouritesClicked}>View All Favourites</Button>}
+                {hasMoreThanLimit && <ShowAllBtn link right onClick={this.onViewAllFavouritesClicked}>View All Favourites</ShowAllBtn>}
             </Container>
         )
         

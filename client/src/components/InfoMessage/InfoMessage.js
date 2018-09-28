@@ -9,7 +9,7 @@ const InfoMessageContainer = styled.div`
     border-radius: 5px;  
     color: ${props => props.theme.foreground}; 
     border: ${props => `1px solid ${props.theme.tertiary}`};
-    display: inline-flex; 
+    display: flex; 
     flex-direction: row; 
     align-items: center; 
 `;
