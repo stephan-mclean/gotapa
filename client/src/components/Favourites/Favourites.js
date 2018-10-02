@@ -2,7 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { withRouter } from 'react-router-dom';
-import { getFavourites } from '../../utils/FavouriteUtil';
+import { toast } from 'react-toastify';
+import { getFavourites, updateFavourite } from '../../utils/FavouriteUtil';
 import List from '../platform/List';
 import Pager from '../Pager/Pager';
 import StopInfo from '../StopInfo/StopInfo';
@@ -20,6 +21,24 @@ const TitleContainer = styled.label`
     font-weight: bold; 
     margin-top: 0.5rem; 
 `;
+
+const StyledUndoButton = styled(Button)`
+    color: ${props => props.theme.background};
+    text-transform: uppercase; 
+`;
+
+const UndoComponentContainer = styled.div`
+    display: flex; 
+    justify-content: space-between;
+    padding: 0.5rem; 
+`;
+
+const UndoComponent = ({ closeToast, removedFavourite, undo }) => (
+    <UndoComponentContainer>
+        {removedFavourite.stopName} removed from favourites.  
+        <StyledUndoButton link onClick={undo.bind(null, closeToast)}>Undo</StyledUndoButton>
+    </UndoComponentContainer>
+);
 
 const LIMITED_MAX_TO_DISPLAY = 5; 
 const DISPLAY_ALL_MAX_TO_DISPLAY = 10; 
@@ -74,6 +93,26 @@ class Favourites extends React.Component {
 
     onUnFavourite(stopId) {
         const index = this.state.favourites.findIndex(fav => fav.stopId === stopId);
+
+        const copyOfFav = Object.assign({}, this.state.favourites[index]);
+
+        const undo = (closeToast) => {
+            let newFavourites = [...this.state.favourites];
+            newFavourites.push(copyOfFav);
+
+            updateFavourite(copyOfFav, true);
+            this.setState({ favourites: newFavourites });
+
+            closeToast(); 
+        }
+
+        toast.info(<UndoComponent removedFavourite={copyOfFav} undo={undo} />, {
+            position: toast.POSITION.BOTTOM_CENTER,
+            closeOnClick: false,
+            closeButton: false
+        });
+
+
         let newFavourites = [...this.state.favourites];
         newFavourites.splice(index, 1);
 

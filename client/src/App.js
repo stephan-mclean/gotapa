@@ -14,6 +14,8 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { faHeart } from '@fortawesome/free-regular-svg-icons';
 import styled, { ThemeProvider } from 'styled-components';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.min.css';
 
 import Nav from './components/Nav/Nav';
 import PageContainer from './components/platform/PageContainer';
@@ -60,6 +62,8 @@ class App extends Component {
               <Route path="/about" component={About}></Route>
               <Route path="/terms" component={Terms}></Route>
               <Route path="/privacy" component={Privacy}></Route>
+
+              <ToastContainer />
             </PageContainer>
 
             <Footer />
