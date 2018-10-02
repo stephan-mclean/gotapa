@@ -8,6 +8,7 @@
     "start": "node index.js",
     "heroku-postbuild": "cd client && npm install && npm run build"
   },
+  "cacheDirectories": ["client/node_modules", "node_modules"],
   "author": "",
   "license": "ISC",
   "dependencies": {

@@ -4,7 +4,7 @@ const compression = require('compression');
 const path = require('path');
 const morgan = require('morgan');
 const sslRedirect = require('heroku-ssl-redirect');
-app.use(morgan(process.env.NODE_ENV === 'production' ? 'common' : 'dev'));
+app.use(morgan(process.env.NODE_ENV === 'production' ? 'combined' : 'dev'));
 app.use(sslRedirect());
 app.use(compression());
 
