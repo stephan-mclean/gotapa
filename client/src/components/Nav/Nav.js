@@ -7,7 +7,6 @@ import { H5 } from '../platform/Headers';
 const StyledNav = styled.nav`
     display: flex; 
     align-items: center; 
-    height: 2rem;
     padding: 1rem;      
     background: ${props => props.theme.foreground}; 
 `;

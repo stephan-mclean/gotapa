@@ -17,11 +17,15 @@ const StyledStopInfoContainer = styled.div`
 const LocationOperatorContainer = styled.div`
     display: flex;
     flex-direction: column; 
+    max-width: 100%; 
 `;
 
 const LocationContainer = styled.div`
     display: inline-block; 
     margin-bottom: ${props => props.shouldShowOperators ? '0.5rem' : '0'}; 
+    max-width: 100%; 
+    overflow: hidden; 
+    text-overflow: ellipsis; 
 `; 
 
 const StopNameHeading = styled.span`

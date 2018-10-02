@@ -14,6 +14,7 @@ const POSITION_TIMEOUT = 3;
 
 const Container = styled.div`
     margin-top: 1rem; 
+    margin-bottom: 1rem; 
 `;
 
 const TitleContainer = styled.label`

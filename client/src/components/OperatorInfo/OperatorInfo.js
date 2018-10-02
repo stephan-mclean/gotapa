@@ -7,6 +7,9 @@ const OperatorContainer = styled.span`
     font-weight: lighter; 
     font-style: italic; 
     margin-right: 0.5rem; 
+    max-width: 100%; 
+    overflow: hidden; 
+    text-overflow: ellipsis; 
 `;
 
 const OperatorInfo = ({ operators }) => {

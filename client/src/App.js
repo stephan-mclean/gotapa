@@ -20,11 +20,22 @@ import PageContainer from './components/platform/PageContainer';
 import Home from './components/Home/Home';
 import Stop from './components/Stop/Stop';
 import Favourites from './components/Favourites/Favourites';
+import About from './components/About/About';
+import Terms from './components/Terms/Terms';
+import Privacy from './components/Privacy/Privacy';
+import Footer from './components/Footer/Footer';
 import Themes from './utils/ThemeUtil';
 
 const StyledLink = styled(Link)`
   text-decoration: none; 
   color: ${props => props.theme.background};
+`;
+
+const Container = styled.div`
+  min-height: 100%; 
+  display: grid; 
+  grid-template-rows: 4rem 1fr 4rem; 
+  grid-template-columns: 100%; 
 `;
 
 library.add(faLongArrowAltRight, faSpinner, faSync, faExclamationTriangle, faHeart, 
@@ -36,7 +47,7 @@ class App extends Component {
     return (
       <Router>
         <ThemeProvider theme={Themes.main}>
-          <div>
+          <Container>
 
             <Nav>
               <StyledLink to="/">GoTapa</StyledLink>
@@ -46,8 +57,13 @@ class App extends Component {
               <Route exact path="/" component={Home}></Route>
               <Route path="/stops/:stopId" component={Stop}></Route>
               <Route path="/favourites" render={props => <Favourites {...props} displayAll={true} />}></Route>
+              <Route path="/about" component={About}></Route>
+              <Route path="/terms" component={Terms}></Route>
+              <Route path="/privacy" component={Privacy}></Route>
             </PageContainer>
-          </div>
+
+            <Footer />
+          </Container>
         </ThemeProvider>
       </Router>
     );

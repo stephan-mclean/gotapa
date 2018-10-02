@@ -1,6 +1,7 @@
 import styled from 'styled-components';  
 
 export default styled.section`
+
     @media only screen and (min-width: 992px) {
         margin-left: 15rem; 
         margin-right: 15rem;
