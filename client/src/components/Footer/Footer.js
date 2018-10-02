@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import Button from '../platform/Button';
 
 const FooterContainer = styled.div`
     border-top: ${props => `1px solid ${props.theme.tertiary}`};
@@ -32,7 +31,7 @@ export default () => (
             <FooterLink to="/privacy">Privacy Policy</FooterLink>
         </div>
         <BuildInfoContainer>
-            v32 Date 123 
+            {process.env.HEROKU_RELEASE_VERSION} {process.env.HEROKU_RELEASE_CREATED_AT} 
         </BuildInfoContainer>
     </FooterContainer>
 );
