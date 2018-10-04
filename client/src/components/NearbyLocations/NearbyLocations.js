@@ -8,6 +8,9 @@ import Loading from '../Loading/Loading';
 import IconMessage from '../IconMessage/IconMessage';
 import InfoMessage from '../InfoMessage/InfoMessage';
 import Button from '../platform/Button';
+import { event } from '../../utils/AnalyticsManager';
+
+const NEARBY_LOCATIONS_ANALYTICS_CATEGORY = 'NearbyLocations';
 
 const POSITION_UNAVAILABLE = 2; 
 const POSITION_TIMEOUT = 3; 
@@ -56,6 +59,12 @@ class NearbyLocations extends React.Component {
 
         navigator.geolocation.getCurrentPosition(position => {
             this.setState({ geolocationAllowed: true});
+
+            event({
+                category: NEARBY_LOCATIONS_ANALYTICS_CATEGORY,
+                action: 'Geolocation allowed and retrieved'
+            });
+
             const { latitude, longitude } = position.coords; 
             fetch(`/api/search/nearby?latitude=${latitude}&longitude=${longitude}&limit=5`)
                 .then(response => response.json())
@@ -72,10 +81,21 @@ class NearbyLocations extends React.Component {
                 this.setState({ error: true });
             }
 
+            event({
+                category: NEARBY_LOCATIONS_ANALYTICS_CATEGORY,
+                action: 'Error retrieving geolocation info',
+                label: error.code
+            });
+
         }, options);
     }
 
     onLocationClicked(item) {
+        event({
+            category: NEARBY_LOCATIONS_ANALYTICS_CATEGORY,
+            action: 'Clicked nearby location',
+            label: item.stopId
+        });
         this.props.history.push(`/stops/${item.stopId}`);
     }
 
