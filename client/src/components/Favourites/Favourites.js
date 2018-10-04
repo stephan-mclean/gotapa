@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { withRouter } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { getFavourites, updateFavourite } from '../../utils/FavouriteUtil';
+import { event } from '../../utils/AnalyticsManager';
 import List from '../platform/List';
 import Pager from '../Pager/Pager';
 import StopInfo from '../StopInfo/StopInfo';
@@ -11,6 +12,8 @@ import StopModel from '../../models/Stop';
 import InfoMessage from '../InfoMessage/InfoMessage';
 import Button from '../platform/Button';
 import Select from '../platform/Select';
+
+const FAVOURITES_ANALYTICS_CATEGORY = 'Favoutites';
 
 const Container = styled.div`
     margin-top: 0.5rem; 
@@ -84,6 +87,11 @@ class Favourites extends React.Component {
     }
 
     onFavouriteClicked(item) {
+        event({
+            category: FAVOURITES_ANALYTICS_CATEGORY,
+            action: 'Clicked a favourite',
+            label: item.stopId
+        });
         this.props.history.push(`/stops/${item.stopId}`);
     }
 
@@ -95,7 +103,6 @@ class Favourites extends React.Component {
         const index = this.state.favourites.findIndex(fav => fav.stopId === stopId);
 
         const copyOfFav = Object.assign({}, this.state.favourites[index]);
-
         const undo = (closeToast) => {
             let newFavourites = [...this.state.favourites];
             newFavourites.push(copyOfFav);
@@ -103,9 +110,13 @@ class Favourites extends React.Component {
             updateFavourite(copyOfFav, true);
             this.setState({ favourites: newFavourites });
 
+            event({
+                category: FAVOURITES_ANALYTICS_CATEGORY,
+                action: 'Undid favourite removal',
+                label: stopId
+            });
             closeToast(); 
         }
-
         toast.info(<UndoComponent removedFavourite={copyOfFav} undo={undo} />, {
             position: toast.POSITION.BOTTOM_CENTER,
             closeOnClick: false,
@@ -119,6 +130,12 @@ class Favourites extends React.Component {
         if (this.state.sortBy) {
             newFavourites = this.doSort(this.state.sortBy, newFavourites);
         }
+
+        event({
+            category: FAVOURITES_ANALYTICS_CATEGORY,
+            action: 'Removed a favourite',
+            label: stopId
+        });
 
         this.setState({ favourites: newFavourites });
     }
@@ -143,6 +160,12 @@ class Favourites extends React.Component {
     onSortingChanged(e) {
         const sortBy = e.target.value; 
         const sorted = this.doSort(sortBy, [...this.state.favourites]);
+
+        event({
+            category: 'User',
+            action: 'Sorted favourites',
+            value: sortBy
+        });
         this.setState({ favourites: sorted, sortBy });
     }
 
