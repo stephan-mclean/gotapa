@@ -4,25 +4,71 @@ const EXPLICIT_CONSENT_KEY = 'GOTAPA_ANALYTICS_CONSENT';
 const EXPLICIT_DENIAL_KEY = 'GOTAPA_ANALYTICS_DENIAL';
 const IMPLICIT_CONSENT_KEY = 'GOTAPA_ANALYTICS_IMPLICIT_CONSENT';
 
-const explicitConsent = localStorage.getItem(EXPLICIT_CONSENT_KEY);
-const explicitDenial = localStorage.getItem(EXPLICIT_DENIAL_KEY);
-const implicitConsent = localStorage.getItem(IMPLICIT_CONSENT_KEY);
+const explicitConsent = () => localStorage.getItem(EXPLICIT_CONSENT_KEY) === 'true';
+const explicitDenial = () => localStorage.getItem(EXPLICIT_DENIAL_KEY) === 'true';
+const implicitConsent = () => localStorage.getItem(IMPLICIT_CONSENT_KEY) === 'true';
 let initialized = false; 
 
-if (!explicitDenial && (implicitConsent || explicitConsent)) {
+const initialize = () => {
     initialized = true; 
-    ReactGA.initialize('UA-126874455-1');
+    ReactGA.initialize('UA-126874455-1', {
+        debug: true
+    });
+}
+
+if (!explicitDenial() && (implicitConsent() || explicitConsent())) {
+    initialize(); 
+}
+
+const canAddEvent = () => {
+    if (explicitDenial()) {
+        return false; 
+    } else if (explicitConsent()) {
+        return true; 
+    } else if (implicitConsent()) {
+        return true; 
+    } else if (!initialized) {
+        localStorage.setItem(IMPLICIT_CONSENT_KEY, 'true');
+        initialize(); 
+        
+        return true; 
+    }
+};
+
+const acceptConsent = () => {
+    localStorage.setItem(EXPLICIT_CONSENT_KEY, 'true');
+    if (initialized) {
+        initialize(); 
+    }
+};
+
+const rejectConsent = () => {
+    localStorage.setItem(EXPLICIT_DENIAL_KEY, 'true');
+    localStorage.setItem(EXPLICIT_CONSENT_KEY, 'false');
+    localStorage.setItem(IMPLICIT_CONSENT_KEY, 'false');
 }
 
 const shouldShowAnalyticsConsentBanner = () => {
-    return !explicitConsent && !explicitDenial; 
+    return !explicitConsent() && !explicitDenial(); 
 };
 
 const pageView = page => {
-    
+    if (canAddEvent()) {
+        ReactGA.pageView(page);
+    }
 };
 
+const event = args => {
+    if (canAddEvent()) {
+        ReactGA.event(args);
+    }
+}
+
 export {
-    shouldShowAnalyticsConsentBanner
+    shouldShowAnalyticsConsentBanner,
+    acceptConsent,
+    rejectConsent,
+    pageView,
+    event
 };
 
