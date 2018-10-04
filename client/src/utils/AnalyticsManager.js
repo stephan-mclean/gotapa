@@ -37,7 +37,7 @@ const canAddEvent = () => {
 
 const acceptConsent = () => {
     localStorage.setItem(EXPLICIT_CONSENT_KEY, 'true');
-    if (initialized) {
+    if (!initialized) {
         initialize(); 
     }
 };
