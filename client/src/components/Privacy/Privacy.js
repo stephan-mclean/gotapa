@@ -12,7 +12,7 @@ export default () => (
         <p>Your continued use of our website will be regarded as acceptance of our practices around privacy and personal information. If you have any questions about how we handle user data and personal information, feel free to contact us.</p>
         
         <H6>Google Analytics</H6>
-        <p>We use Google Analytics to help us understand how you use our website, and what we can do to improve it. To do this, we collect information such as: </p>
+        <p>We use Google Analytics to help us understand how you use our website, and what we can do to improve it. To do this, we collect information such as (but not limited to): </p>
         <ol type="a">
             <li>The kind of device you are using.</li>
             <li>Where you were referred to our site from.</li>
@@ -21,7 +21,8 @@ export default () => (
             <li>What you do on the pages you visit e.g clicked a particular button.</li>
             <li>How long you stay on our site for.</li>
         </ol>
-        <p>You can learn more about Google Analytics <a>here.</a></p>
+        <p>You can learn more about Google Analytics <a href="https://www.google.com/policies/privacy/partners/">here.</a></p>
+        <p>You can learn more about cookies <a href="https://cookiesandyou.com/">here.</a></p>
 
         <p>This policy is effective as of 2 October 2018.</p>
     </div>
