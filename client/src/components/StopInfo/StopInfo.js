@@ -4,6 +4,9 @@ import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import OperatorInfo from '../OperatorInfo/OperatorInfo';
 import { isFavourite, updateFavourite } from '../../utils/FavouriteUtil';
+import { event } from '../../utils/AnalyticsManager';
+
+const STOPINFO_ANALYTICS_CATEGORY = 'Stop Info';
 
 const StyledStopInfoContainer = styled.div`
     display: flex; 
@@ -96,8 +99,20 @@ class StopInfo extends React.Component {
 StopInfo.defaultProps = {
     canUpdateFavourite: false,
     shouldShowOperators: true,
-    onFavourite: () => {},
-    onUnFavourite: () => {}
+    onFavourite: stopId => {
+        event({
+            category: STOPINFO_ANALYTICS_CATEGORY,
+            action: 'Added a favourite',
+            label: stopId
+        });
+    },
+    onUnFavourite: stopId => {
+        event({
+            category: STOPINFO_ANALYTICS_CATEGORY,
+            action: 'Removed a favourite',
+            label: stopId
+        });
+    }
 };
 
 StopInfo.propTypes = {

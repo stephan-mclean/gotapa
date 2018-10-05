@@ -8,6 +8,9 @@ import StopModel from '../../models/Stop';
 import { TabSet, Tab, TabHeading, TabBody } from '../TabSet/TabSet';
 import IconMessage from '../IconMessage/IconMessage';
 import Button from '../platform/Button';
+import { event } from '../../utils/AnalyticsManager';
+
+const STOP_ANALYTICS_CATEGORY = 'Stop';
 
 const CustomMaker = styled(FontAwesomeIcon)`
     position: absolute; 
@@ -25,6 +28,8 @@ class Stop extends React.Component {
 
         this.state = { stopInfo: null, error: false, coords: null, stopId: this.props.match.params.stopId };
         this.fetchStop = this.fetchStop.bind(this);
+        this.onViewRealtimeResults = this.onViewRealtimeResults.bind(this);
+        this.onViewMap = this.onViewMap.bind(this);
     }
 
     componentDidMount() {
@@ -43,6 +48,22 @@ class Stop extends React.Component {
                 this.setState({ stopInfo, coords });
             })
             .catch(error => this.setState({ error: true }));
+    }
+
+    onViewRealtimeResults() {
+        event({
+            category: STOP_ANALYTICS_CATEGORY,
+            action: 'Viewed real-time results',
+            label: this.state.stopId
+        });
+    }
+
+    onViewMap() {
+        event({
+            category: STOP_ANALYTICS_CATEGORY,
+            action: 'Viewed map',
+            label: this.state.stopId
+        });
     }
 
     render() {
@@ -71,7 +92,7 @@ class Stop extends React.Component {
 
                 <TabSet>
 
-                    <Tab>
+                    <Tab onActive={this.onViewRealtimeResults}>
                         <TabHeading>Real time results</TabHeading>
 
                         <TabBody>
@@ -79,7 +100,7 @@ class Stop extends React.Component {
                         </TabBody>
                     </Tab>
 
-                    <Tab>
+                    <Tab onActive={this.onViewMap}>
                         <TabHeading>Map</TabHeading>
 
                         <TabBody>{mapToShow}</TabBody>

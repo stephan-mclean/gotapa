@@ -14,7 +14,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { faHeart } from '@fortawesome/free-regular-svg-icons';
 import styled, { ThemeProvider } from 'styled-components';
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
 
 import Nav from './components/Nav/Nav';
@@ -27,6 +27,8 @@ import Terms from './components/Terms/Terms';
 import Privacy from './components/Privacy/Privacy';
 import Footer from './components/Footer/Footer';
 import Themes from './utils/ThemeUtil';
+import AnalyticsBanner from './components/AnalyticsBanner/AnalyticsBanner';
+import { shouldShowAnalyticsConsentBanner } from './utils/AnalyticsManager';
 
 const StyledLink = styled(Link)`
   text-decoration: none; 
@@ -44,6 +46,22 @@ library.add(faLongArrowAltRight, faSpinner, faSync, faExclamationTriangle, faHea
   faSolidHeart, faCircle, faChevronLeft, faInfoCircle, faMapPin);
 
 class App extends Component {
+
+  componentDidMount() {
+
+    if (shouldShowAnalyticsConsentBanner()) {
+
+      setTimeout(() => {
+        toast.warn(<AnalyticsBanner />, {
+          position: toast.POSITION.BOTTOM_LEFT,
+          autoClose: false,
+          closeButton: false,
+          closeOnClick: false
+        }); 
+      }, 500); 
+    }
+
+  }
 
   render() {
     return (

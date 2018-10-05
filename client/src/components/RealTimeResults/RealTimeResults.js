@@ -9,6 +9,9 @@ import RealTimeEntryModel from '../../models/RealTimeEntry';
 import Loading from '../Loading/Loading';
 import IconMessage from '../IconMessage/IconMessage';
 import Button from '../platform/Button';
+import { event } from '../../utils/AnalyticsManager';
+
+const REALTIME_RESULTS_ANALYTICS_CATEGORY = 'RealTimeResults';
 
 const CustomList = styled(List)`
     border: none; 
@@ -33,6 +36,7 @@ class RealTimeResults extends React.Component {
 
         this.state = { results: [], loading: false, error: false };
         this.loadResults = this.loadResults.bind(this);
+        this.refreshResults = this.refreshResults.bind(this);
     }
 
     loadResults() {
@@ -45,13 +49,23 @@ class RealTimeResults extends React.Component {
             .catch(error => this.setState({ error: true, loading: false }));
     }
 
+    refreshResults() {
+        event({
+            category: REALTIME_RESULTS_ANALYTICS_CATEGORY,
+            action: 'Refreshed results',
+            label: this.props.stopId
+        });
+
+        this.loadResults(); 
+    }
+
     componentDidMount() {
         this.loadResults(); 
     }
 
     render() {
 
-        const refreshIcon = <RefreshContainer><FontAwesomeIcon onClick={this.loadResults} icon="sync" /></RefreshContainer>
+        const refreshIcon = <RefreshContainer><FontAwesomeIcon onClick={this.refreshResults} icon="sync" /></RefreshContainer>
         if (this.state.error) {
             return (
                 <IconMessage icon="exclamation-triangle">Something went wrong loading real time results. <Button onClick={this.loadResults} link>Click here</Button> to retry.</IconMessage>

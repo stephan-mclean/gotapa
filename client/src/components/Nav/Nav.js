@@ -3,6 +3,9 @@ import { withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { H5 } from '../platform/Headers';
+import { pageView, event } from '../../utils/AnalyticsManager';
+
+const NAV_ANALYTICS_CATEGORY = 'Nav';
 
 const StyledNav = styled.nav`
     display: flex; 
@@ -32,11 +35,13 @@ class Nav extends React.Component {
         this.shouldShowBack = this.shouldShowBack.bind(this);
         this.goBack = this.goBack.bind(this);
 
+        pageView(this.props.history.location.pathname);
         this.state = { shouldShowBack: this.shouldShowBack() };
     }
 
     componentDidMount() {
         this.props.history.listen(location => {
+            pageView(location.pathname);
             this.setState({ shouldShowBack: this.shouldShowBack() });
         });
     }
@@ -46,6 +51,10 @@ class Nav extends React.Component {
     }
 
     goBack() {
+        event({
+            category: NAV_ANALYTICS_CATEGORY,
+            action: 'Clicked back button'
+        });
         this.props.history.goBack();
     }
 
