@@ -2,12 +2,13 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import Button from '../platform/Button';
-import { acceptConsent, rejectConsent } from '../../utils/AnalyticsManager';
+import { acceptConsent, rejectConsent, event } from '../../utils/AnalyticsManager';
+
+const ANALYTICS_BANNER_CATEGORY = 'AnalyticsBanner';
 
 const AnalyticsBannerContainer = styled.div`
   display: flex; 
   justify-content: space-between;
-  padding: 0.5rem; 
   font-size: 0.875rem; 
 `; 
 
@@ -51,11 +52,19 @@ class AnalyticsBanner extends React.Component {
     }
 
     accept() {
+        event({
+            category: ANALYTICS_BANNER_CATEGORY,
+            action: 'Accepted analytics'
+        });
         acceptConsent(); 
         this.props.closeToast(); 
     }
 
     reject() {
+        event({
+            category: ANALYTICS_BANNER_CATEGORY,
+            action: 'Rejected analytics'
+        });
         rejectConsent(); 
         this.props.closeToast();
     }

@@ -50,12 +50,15 @@ class App extends Component {
   componentDidMount() {
 
     if (shouldShowAnalyticsConsentBanner()) {
-      toast.warn(<AnalyticsBanner />, {
-        position: toast.POSITION.BOTTOM_LEFT,
-        autoClose: false,
-        closeButton: false,
-        closeOnClick: false
-      });  
+
+      setTimeout(() => {
+        toast.warn(<AnalyticsBanner />, {
+          position: toast.POSITION.BOTTOM_LEFT,
+          autoClose: false,
+          closeButton: false,
+          closeOnClick: false
+        }); 
+      }, 500); 
     }
 
   }
