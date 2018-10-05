@@ -10,11 +10,10 @@ const implicitConsent = () => localStorage.getItem(IMPLICIT_CONSENT_KEY) === 'tr
 let initialized = false; 
 
 const initialize = () => {
-    console.log('initialize');
     initialized = true; 
-    /*ReactGA.initialize('UA-126874455-1', {
-        debug: true
-    });*/ 
+    ReactGA.initialize('UA-126874455-1', {
+        debug: process.env.NODE_ENV !== 'production'
+    }); 
 }
 
 if (!explicitDenial() && (implicitConsent() || explicitConsent())) {
@@ -38,6 +37,7 @@ const canAddEvent = () => {
 
 const acceptConsent = () => {
     localStorage.setItem(EXPLICIT_CONSENT_KEY, 'true');
+    localStorage.setItem(EXPLICIT_DENIAL_KEY, 'false');
     if (!initialized) {
         initialize(); 
     }
@@ -55,15 +55,13 @@ const shouldShowAnalyticsConsentBanner = () => {
 
 const pageView = page => {
     if (canAddEvent()) {
-        console.log('page view', page);
-        //ReactGA.pageView(page);
+        ReactGA.pageview(page);
     }
 };
 
 const event = args => {
     if (canAddEvent()) {
-        console.log('event', args);
-        //ReactGA.event(args);
+        ReactGA.event(args);
     }
 }
 

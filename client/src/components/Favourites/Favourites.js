@@ -13,7 +13,7 @@ import InfoMessage from '../InfoMessage/InfoMessage';
 import Button from '../platform/Button';
 import Select from '../platform/Select';
 
-const FAVOURITES_ANALYTICS_CATEGORY = 'Favoutites';
+const FAVOURITES_ANALYTICS_CATEGORY = 'Favourites';
 
 const Container = styled.div`
     margin-top: 0.5rem; 

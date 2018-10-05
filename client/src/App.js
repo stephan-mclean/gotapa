@@ -27,6 +27,7 @@ import Terms from './components/Terms/Terms';
 import Privacy from './components/Privacy/Privacy';
 import Footer from './components/Footer/Footer';
 import Themes from './utils/ThemeUtil';
+import AnalyticsBanner from './components/AnalyticsBanner/AnalyticsBanner';
 import { shouldShowAnalyticsConsentBanner } from './utils/AnalyticsManager';
 
 const StyledLink = styled(Link)`
@@ -48,12 +49,12 @@ class App extends Component {
 
   componentDidMount() {
 
-    console.log('app did mount');
     if (shouldShowAnalyticsConsentBanner()) {
-      toast.warn('This site uses cookies to improve your experience.', {
+      toast.warn(<AnalyticsBanner />, {
         position: toast.POSITION.BOTTOM_LEFT,
         autoClose: false,
-        closeButton: false
+        closeButton: false,
+        closeOnClick: false
       });  
     }
 
